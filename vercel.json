@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "design-system.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/design-system.html" },
+    { "src": "/design-system", "dest": "/design-system.html" }
+  ]
+}
