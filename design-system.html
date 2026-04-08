@@ -1,0 +1,2048 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PQN — Design System</title>
+    <meta name="description" content="Documentação viva do design system PQN — cores, tipografia, espaçamento e regras." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ============================================================
+         RESET + ROOT
+         ============================================================ */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+      img, svg { display: block; max-width: 100%; }
+      button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+      a { color: inherit; text-decoration: none; }
+      ::selection { background: var(--principal-9); color: #fff; }
+
+      :root {
+        /* Brand — Principal (Orange) */
+        --principal-1:#FFFCFB; --principal-2:#FFF5EE; --principal-3:#FFE6D7;
+        --principal-4:#FFD5C0; --principal-5:#FFC5AA; --principal-6:#F3B094;
+        --principal-7:#E49678; --principal-8:#D47A58; --principal-9:#E25112;
+        --principal-10:#D34D13; --principal-11:#BD400E; --principal-12:#5D2A13;
+
+        /* Brand — Segundária (Purple) */
+        --segundaria-9:#AB4ABA;
+
+        /* Type */
+        --font-display: "Instrument Serif", "Times New Roman", serif;
+        --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+        /* Motion */
+        --ease-out: cubic-bezier(.16,1,.3,1);
+        --ease-spring: cubic-bezier(.34,1.56,.64,1);
+        --d-fast: 150ms;
+        --d-base: 250ms;
+        --d-slow: 450ms;
+
+        /* Layout */
+        --sidebar-w: 280px;
+        --container: 1240px;
+      }
+
+      /* ============================================================
+         THEMES
+         ============================================================ */
+      [data-theme="dark"] {
+        --bg: #0B0B0C;
+        --bg-elevated: #111113;
+        --surface: #16161A;
+        --surface-2: #1C1C21;
+        --surface-3: #232329;
+        --border: #26262C;
+        --border-strong: #34343C;
+        --text-1: #F4F4F5;
+        --text-2: #A8A8B0;
+        --text-3: #6B6B74;
+        --text-on-accent: #FFFFFF;
+        --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+        --shadow-md: 0 8px 24px -8px rgba(0,0,0,.6), 0 2px 6px rgba(0,0,0,.4);
+        --shadow-lg: 0 24px 60px -20px rgba(0,0,0,.7), 0 6px 16px rgba(0,0,0,.5);
+        --shadow-glow: 0 0 0 1px rgba(226,81,18,.25), 0 12px 40px -8px rgba(226,81,18,.35);
+        --grain-opacity: .035;
+      }
+
+      [data-theme="light"] {
+        --bg: #FAFAFA;
+        --bg-elevated: #FFFFFF;
+        --surface: #FFFFFF;
+        --surface-2: #F5F5F5;
+        --surface-3: #EFEFEF;
+        --border: #E6E6E6;
+        --border-strong: #D4D4D4;
+        --text-1: #18181B;
+        --text-2: #52525B;
+        --text-3: #8A8A93;
+        --text-on-accent: #FFFFFF;
+        --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
+        --shadow-md: 0 8px 24px -8px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.06);
+        --shadow-lg: 0 24px 60px -20px rgba(0,0,0,.18), 0 6px 16px rgba(0,0,0,.08);
+        --shadow-glow: 0 0 0 1px rgba(226,81,18,.2), 0 12px 40px -8px rgba(226,81,18,.25);
+        --grain-opacity: .025;
+      }
+
+      /* ============================================================
+         BODY
+         ============================================================ */
+      body {
+        font-family: var(--font-sans);
+        background: var(--bg);
+        color: var(--text-1);
+        line-height: 1.5;
+        font-feature-settings: "ss01","cv11";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background var(--d-base) var(--ease-out), color var(--d-base) var(--ease-out);
+        overflow-x: hidden;
+      }
+
+      /* Subtle grain overlay */
+      body::before {
+        content:"";
+        position: fixed; inset:0;
+        pointer-events: none;
+        z-index: 100;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        opacity: var(--grain-opacity);
+        mix-blend-mode: overlay;
+      }
+
+      /* ============================================================
+         SIDEBAR
+         ============================================================ */
+      .sidebar {
+        position: fixed;
+        top: 0; left: 0; bottom: 0;
+        width: var(--sidebar-w);
+        padding: 32px 24px 24px;
+        background: var(--bg-elevated);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        z-index: 50;
+        overflow-y: auto;
+      }
+      .sidebar::-webkit-scrollbar { width: 6px; }
+      .sidebar::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 32px;
+        opacity: 0;
+        transform: translateY(-8px);
+        animation: fadeDown var(--d-slow) var(--ease-out) .05s forwards;
+      }
+      .brand-mark {
+        width: 38px; height: 38px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--principal-9), var(--segundaria-9));
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 22px;
+        font-weight: 400;
+        box-shadow: var(--shadow-glow);
+        position: relative;
+        overflow: hidden;
+      }
+      .brand-mark::after {
+        content:"";
+        position: absolute; inset:0;
+        background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,.2) 50%, transparent 60%);
+        animation: shine 4s var(--ease-out) infinite;
+      }
+      @keyframes shine {
+        0%, 100% { transform: translateX(-100%); }
+        50% { transform: translateX(100%); }
+      }
+      .brand-text { line-height: 1.1; }
+      .brand-text strong { display:block; font-weight: 800; font-size: 15px; letter-spacing: -.01em; }
+      .brand-text span { font-family: var(--font-display); font-style: italic; font-size: 12px; color: var(--text-2); }
+
+      .sidebar-search {
+        position: relative;
+        margin-bottom: 24px;
+      }
+      .sidebar-search input {
+        width: 100%;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text-1);
+        padding: 10px 12px 10px 36px;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 13px;
+        outline: none;
+        transition: all var(--d-fast) var(--ease-out);
+      }
+      .sidebar-search input::placeholder { color: var(--text-3); }
+      .sidebar-search input:focus {
+        border-color: var(--principal-9);
+        box-shadow: 0 0 0 3px rgba(226,81,18,.15);
+      }
+      .sidebar-search svg {
+        position: absolute;
+        left: 12px; top: 50%;
+        transform: translateY(-50%);
+        width: 14px; height: 14px;
+        color: var(--text-3);
+      }
+
+      .nav-section { margin-bottom: 24px; }
+      .nav-label {
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .12em;
+        color: var(--text-3);
+        padding: 0 12px 8px;
+      }
+
+      .nav-list { list-style: none; }
+      .nav-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 9px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-2);
+        cursor: pointer;
+        transition: all var(--d-fast) var(--ease-out);
+        opacity: 0;
+        transform: translateX(-8px);
+        animation: navIn var(--d-base) var(--ease-out) forwards;
+      }
+      .nav-item:nth-child(1) { animation-delay: .12s }
+      .nav-item:nth-child(2) { animation-delay: .16s }
+      .nav-item:nth-child(3) { animation-delay: .20s }
+      .nav-item:nth-child(4) { animation-delay: .24s }
+      .nav-item:nth-child(5) { animation-delay: .28s }
+      .nav-item:nth-child(6) { animation-delay: .32s }
+      .nav-item:nth-child(7) { animation-delay: .36s }
+      .nav-item:nth-child(8) { animation-delay: .40s }
+
+      @keyframes navIn { to { opacity: 1; transform: translateX(0); } }
+
+      .nav-item:hover { background: var(--surface); color: var(--text-1); }
+      .nav-item.active {
+        background: var(--surface-2);
+        color: var(--text-1);
+      }
+      .nav-item.active::before {
+        content: "";
+        position: absolute;
+        left: 0; top: 50%;
+        transform: translateY(-50%);
+        width: 3px; height: 18px;
+        background: var(--principal-9);
+        border-radius: 0 3px 3px 0;
+        animation: barIn var(--d-base) var(--ease-spring);
+      }
+      @keyframes barIn { from { transform: translateY(-50%) scaleY(0); } to { transform: translateY(-50%) scaleY(1); } }
+      .nav-item .dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: var(--border-strong);
+        flex-shrink: 0;
+      }
+      .nav-item.active .dot { background: var(--principal-9); }
+      .nav-item .count {
+        margin-left: auto;
+        font-size: 11px;
+        color: var(--text-3);
+        font-family: var(--font-mono);
+      }
+
+      .sidebar-foot {
+        margin-top: auto;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .theme-toggle {
+        display: flex;
+        gap: 4px;
+        padding: 4px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+      }
+      .theme-toggle button {
+        flex: 1;
+        padding: 7px 10px;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-2);
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all var(--d-fast) var(--ease-out);
+      }
+      .theme-toggle button.active {
+        background: var(--surface-3);
+        color: var(--text-1);
+      }
+      .theme-toggle svg { width: 14px; height: 14px; }
+
+      .sidebar-meta {
+        font-size: 11px;
+        color: var(--text-3);
+        padding: 6px 12px;
+        font-family: var(--font-mono);
+      }
+
+      /* ============================================================
+         MAIN
+         ============================================================ */
+      .main {
+        margin-left: var(--sidebar-w);
+        min-height: 100vh;
+        position: relative;
+      }
+
+      .container {
+        max-width: var(--container);
+        padding: 0 56px;
+        margin: 0 auto;
+      }
+
+      section { padding: 96px 0; position: relative; }
+      section + section { border-top: 1px solid var(--border); }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 18px;
+        color: var(--principal-9);
+        margin-bottom: 16px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 28px; height: 1px;
+        background: var(--principal-9);
+      }
+
+      h1.section-title {
+        font-size: clamp(40px, 6vw, 76px);
+        font-weight: 800;
+        line-height: .95;
+        letter-spacing: -.035em;
+        margin-bottom: 24px;
+      }
+      h1.section-title .it {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-weight: 400;
+        letter-spacing: -.02em;
+        color: var(--text-2);
+      }
+
+      h2.section-title {
+        font-size: clamp(32px, 4.5vw, 56px);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -.03em;
+        margin-bottom: 16px;
+      }
+      h2.section-title .it {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-weight: 400;
+        color: var(--text-2);
+      }
+
+      .section-desc {
+        font-size: 16px;
+        color: var(--text-2);
+        max-width: 640px;
+        margin-bottom: 48px;
+        line-height: 1.6;
+      }
+
+      /* ============================================================
+         HERO
+         ============================================================ */
+      .hero { padding: 120px 0 96px; }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 64px;
+        align-items: end;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .hero-stat {
+        background: var(--surface);
+        padding: 24px;
+        position: relative;
+      }
+      .hero-stat .num {
+        font-size: 44px;
+        font-weight: 800;
+        letter-spacing: -.03em;
+        line-height: 1;
+        color: var(--text-1);
+        font-feature-settings: "tnum";
+      }
+      .hero-stat .num .accent { color: var(--principal-9); }
+      .hero-stat .lbl {
+        font-size: 12px;
+        color: var(--text-3);
+        margin-top: 8px;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+      }
+
+      .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+
+      /* ============================================================
+         BUTTONS
+         ============================================================ */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 18px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: -.005em;
+        transition: all var(--d-fast) var(--ease-out);
+        border: 1px solid transparent;
+        white-space: nowrap;
+      }
+      .btn svg { width: 14px; height: 14px; }
+      .btn-primary {
+        background: var(--principal-9);
+        color: var(--text-on-accent);
+      }
+      .btn-primary:hover {
+        background: var(--principal-10);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-glow);
+      }
+      .btn-ghost {
+        background: var(--surface);
+        color: var(--text-1);
+        border-color: var(--border);
+      }
+      .btn-ghost:hover {
+        background: var(--surface-2);
+        border-color: var(--border-strong);
+      }
+      .btn-icon {
+        padding: 9px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text-2);
+      }
+      .btn-icon:hover {
+        background: var(--surface-2);
+        color: var(--text-1);
+        border-color: var(--border-strong);
+      }
+      .btn:active { transform: scale(.97); }
+
+      /* ============================================================
+         COLORS
+         ============================================================ */
+      .scale {
+        margin-bottom: 64px;
+      }
+      .scale-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      .scale-meta { display: flex; align-items: center; gap: 16px; }
+      .scale-chip {
+        width: 32px; height: 32px;
+        border-radius: 8px;
+        box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(255,255,255,.06);
+      }
+      .scale-name {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -.015em;
+      }
+      .scale-name small {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-weight: 400;
+        font-size: 16px;
+        color: var(--text-2);
+        margin-left: 6px;
+      }
+      .scale-actions { display: flex; gap: 8px; }
+
+      .swatch-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 8px;
+      }
+      @media (max-width: 1100px) { .swatch-grid { grid-template-columns: repeat(6, 1fr); } }
+      @media (max-width: 700px)  { .swatch-grid { grid-template-columns: repeat(4, 1fr); } }
+
+      .swatch {
+        position: relative;
+        cursor: pointer;
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        transition: transform var(--d-base) var(--ease-spring),
+                    box-shadow var(--d-base) var(--ease-out),
+                    border-color var(--d-fast) var(--ease-out);
+      }
+      .swatch:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--border-strong);
+        z-index: 2;
+      }
+      .swatch:hover .swatch-color { transform: scale(1.05); }
+
+      .swatch-color {
+        height: 96px;
+        width: 100%;
+        transition: transform var(--d-slow) var(--ease-out);
+      }
+      .swatch-info {
+        padding: 10px 12px 12px;
+      }
+      .swatch-step {
+        font-size: 11px;
+        color: var(--text-3);
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+      .swatch-hex {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--text-1);
+        text-transform: uppercase;
+      }
+      .swatch-copied {
+        position: absolute;
+        inset: 0;
+        background: var(--principal-9);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .04em;
+        opacity: 0;
+        transform: scale(.95);
+        transition: opacity var(--d-fast) var(--ease-out), transform var(--d-fast) var(--ease-spring);
+        pointer-events: none;
+      }
+      .swatch.copied .swatch-copied { opacity: 1; transform: scale(1); }
+
+      /* ============================================================
+         TYPOGRAPHY
+         ============================================================ */
+      .type-category { margin-bottom: 80px; }
+
+      .type-grid {
+        display: grid;
+        gap: 14px;
+      }
+      .type-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px 32px;
+        display: grid;
+        grid-template-columns: 1fr 200px;
+        gap: 28px;
+        align-items: center;
+        transition: border-color var(--d-base) var(--ease-out),
+                    background var(--d-base) var(--ease-out),
+                    transform var(--d-base) var(--ease-out);
+        position: relative;
+        overflow: hidden;
+      }
+      .type-card::before {
+        content: "";
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 3px;
+        background: linear-gradient(180deg, var(--principal-9), var(--segundaria-9));
+        opacity: 0;
+        transition: opacity var(--d-base) var(--ease-out);
+      }
+      .type-card:hover {
+        border-color: var(--border-strong);
+        background: var(--surface-2);
+        transform: translateY(-1px);
+      }
+      .type-card:hover::before { opacity: 1; }
+
+      .type-preview {
+        font-family: "Inter", var(--font-sans);
+        color: var(--text-1);
+        line-height: 1.05;
+        letter-spacing: -.02em;
+        min-width: 0;
+        overflow: hidden;
+      }
+      .type-preview-text {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(28px);
+        filter: blur(10px);
+        will-change: opacity, transform, filter;
+      }
+      .type-preview-text.anim-in {
+        animation: typeFontReveal .9s var(--ease-out) forwards;
+      }
+      @keyframes typeFontReveal {
+        0% {
+          opacity: 0;
+          transform: translateY(28px);
+          filter: blur(10px);
+          letter-spacing: -.04em;
+        }
+        55% {
+          filter: blur(0);
+          letter-spacing: -.025em;
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+          filter: blur(0);
+          letter-spacing: -.02em;
+        }
+      }
+
+      .type-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
+        border-left: 1px dashed var(--border);
+        padding-left: 24px;
+      }
+      .type-name {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: .04em;
+        color: var(--text-1);
+        font-weight: 600;
+        word-break: break-all;
+        line-height: 1.4;
+      }
+      .type-specs {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-3);
+      }
+      .type-card .btn-icon { align-self: flex-end; margin-top: 8px; }
+
+      .type-group-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 28px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      .type-group-name {
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -.025em;
+      }
+      .type-group-name small {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-weight: 400;
+        font-size: 18px;
+        color: var(--text-2);
+        margin-left: 8px;
+      }
+      .type-group-desc {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-3);
+        margin-top: 6px;
+      }
+
+      /* Weight blocks (Bold/Semibold/Medium/Regular) */
+      .type-weight-block {
+        margin-top: 32px;
+        padding: 24px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        position: relative;
+      }
+      .type-weight-block::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 24px; right: 24px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--principal-9), transparent);
+        opacity: 0;
+        transition: opacity .6s var(--ease-out);
+      }
+      .type-weight-block:hover::before { opacity: .7; }
+
+      .type-weight-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+        border-bottom: 1px dashed var(--border);
+      }
+      .type-weight-label {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .type-weight-tag {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-1);
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        padding: 5px 10px;
+        border-radius: 8px;
+        letter-spacing: .01em;
+      }
+      .type-weight-meta {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-3);
+      }
+      .btn-ghost-tiny {
+        padding: 6px 10px !important;
+        height: auto !important;
+        background: transparent !important;
+        border: 1px solid var(--border) !important;
+        color: var(--text-2) !important;
+      }
+      .btn-ghost-tiny:hover {
+        background: var(--surface-2) !important;
+        color: var(--text-1) !important;
+        border-color: var(--border-strong) !important;
+      }
+
+      @media (max-width: 720px) {
+        .type-card { grid-template-columns: 1fr; padding: 22px; }
+        .type-meta { border-left: 0; border-top: 1px dashed var(--border); padding-left: 0; padding-top: 16px; }
+        .type-weight-block { padding: 18px; }
+      }
+
+      /* ============================================================
+         SPACING
+         ============================================================ */
+      .spacing-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .space-row {
+        display: grid;
+        grid-template-columns: 80px 1fr 100px 36px;
+        gap: 24px;
+        align-items: center;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px 20px;
+        transition: all var(--d-fast) var(--ease-out);
+      }
+      .space-row:hover {
+        border-color: var(--border-strong);
+        background: var(--surface-2);
+      }
+      .space-token {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-1);
+      }
+      .space-bar {
+        height: 14px;
+        background: linear-gradient(90deg, var(--principal-9), var(--segundaria-9));
+        border-radius: 4px;
+        position: relative;
+        overflow: hidden;
+      }
+      .space-bar::after {
+        content:"";
+        position: absolute; inset:0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+        animation: barShine 3s linear infinite;
+      }
+      @keyframes barShine {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+      .space-px {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-2);
+        text-align: right;
+      }
+
+      /* ============================================================
+         RADIUS
+         ============================================================ */
+      .radius-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        gap: 16px;
+      }
+      .radius-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 24px;
+        text-align: center;
+        cursor: pointer;
+        transition: all var(--d-base) var(--ease-out);
+      }
+      .radius-card:hover {
+        border-color: var(--border-strong);
+        background: var(--surface-2);
+        transform: translateY(-3px);
+      }
+      .radius-shape {
+        width: 96px; height: 64px;
+        margin: 0 auto 18px;
+        background: linear-gradient(135deg, var(--principal-9), var(--segundaria-9));
+        position: relative;
+      }
+      .radius-name {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-1);
+      }
+      .radius-val {
+        font-size: 11px;
+        color: var(--text-3);
+        font-family: var(--font-mono);
+      }
+
+      /* ============================================================
+         RULES
+         ============================================================ */
+      .rule-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .rule-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+        transition: all var(--d-base) var(--ease-out);
+      }
+      .rule-card::before {
+        content:"";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+        background: var(--principal-9);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform var(--d-base) var(--ease-out);
+      }
+      .rule-card:hover { border-color: var(--border-strong); background: var(--surface-2); }
+      .rule-card:hover::before { transform: scaleX(1); }
+
+      .rule-num {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 32px;
+        color: var(--principal-9);
+        line-height: 1;
+        margin-bottom: 12px;
+      }
+      .rule-title {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: -.01em;
+        margin-bottom: 8px;
+      }
+      .rule-text {
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.55;
+      }
+
+      /* ============================================================
+         DOWNLOADS
+         ============================================================ */
+      .download-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .download-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        cursor: pointer;
+        transition: all var(--d-base) var(--ease-out);
+        position: relative;
+        overflow: hidden;
+      }
+      .download-card::after {
+        content:"";
+        position: absolute;
+        bottom: -40px; right: -40px;
+        width: 120px; height: 120px;
+        background: radial-gradient(circle, rgba(226,81,18,.18), transparent 70%);
+        opacity: 0;
+        transition: opacity var(--d-base) var(--ease-out);
+      }
+      .download-card:hover {
+        border-color: var(--principal-9);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
+      .download-card:hover::after { opacity: 1; }
+      .download-icon {
+        width: 44px; height: 44px;
+        border-radius: 12px;
+        background: var(--surface-3);
+        display: grid;
+        place-items: center;
+        margin-bottom: 18px;
+        color: var(--principal-9);
+      }
+      .download-icon svg { width: 20px; height: 20px; }
+      .download-card:hover .download-icon { background: var(--principal-9); color: var(--text-on-accent); }
+      .download-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        letter-spacing: -.01em;
+      }
+      .download-desc {
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.5;
+      }
+      .download-meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-3);
+      }
+
+      /* ============================================================
+         REVEAL
+         ============================================================ */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity .8s var(--ease-out), transform .8s var(--ease-out);
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-stagger > * {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity .6s var(--ease-out), transform .6s var(--ease-out);
+      }
+      .reveal-stagger.in > * {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-stagger.in > *:nth-child(1)  { transition-delay: .04s }
+      .reveal-stagger.in > *:nth-child(2)  { transition-delay: .08s }
+      .reveal-stagger.in > *:nth-child(3)  { transition-delay: .12s }
+      .reveal-stagger.in > *:nth-child(4)  { transition-delay: .16s }
+      .reveal-stagger.in > *:nth-child(5)  { transition-delay: .20s }
+      .reveal-stagger.in > *:nth-child(6)  { transition-delay: .24s }
+      .reveal-stagger.in > *:nth-child(7)  { transition-delay: .28s }
+      .reveal-stagger.in > *:nth-child(8)  { transition-delay: .32s }
+      .reveal-stagger.in > *:nth-child(9)  { transition-delay: .36s }
+      .reveal-stagger.in > *:nth-child(10) { transition-delay: .40s }
+      .reveal-stagger.in > *:nth-child(11) { transition-delay: .44s }
+      .reveal-stagger.in > *:nth-child(12) { transition-delay: .48s }
+
+      @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes fadeDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+      /* ============================================================
+         TOAST
+         ============================================================ */
+      .toast {
+        position: fixed;
+        bottom: 32px; left: 50%;
+        transform: translateX(-50%) translateY(40px);
+        background: var(--text-1);
+        color: var(--bg);
+        padding: 12px 20px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--d-base) var(--ease-out), transform var(--d-base) var(--ease-spring);
+        z-index: 1000;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .toast svg { width: 16px; height: 16px; color: var(--principal-9); }
+
+      /* ============================================================
+         RESPONSIVE
+         ============================================================ */
+      .menu-toggle { display: none; }
+      @media (max-width: 980px) {
+        :root { --sidebar-w: 0px; }
+        .sidebar {
+          transform: translateX(-100%);
+          width: 280px;
+          transition: transform var(--d-base) var(--ease-out);
+        }
+        .sidebar.open { transform: translateX(0); }
+        .main { margin-left: 0; }
+        .container { padding: 0 24px; }
+        .menu-toggle {
+          display: flex;
+          position: fixed;
+          top: 20px; right: 20px;
+          z-index: 60;
+          width: 44px; height: 44px;
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          align-items: center;
+          justify-content: center;
+        }
+        .menu-toggle svg { width: 18px; height: 18px; }
+        .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+        section { padding: 64px 0; }
+        .type-card { grid-template-columns: 1fr; }
+        .space-row { grid-template-columns: 60px 1fr 70px 36px; gap: 12px; padding: 12px 14px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: .01ms !important;
+          transition-duration: .01ms !important;
+        }
+        .type-preview-text {
+          opacity: 1 !important;
+          transform: none !important;
+          filter: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">P</div>
+        <div class="brand-text">
+          <strong>PQN Design System</strong>
+          <span>v1.0 — abril 2026</span>
+        </div>
+      </div>
+
+      <div class="sidebar-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search" type="text" placeholder="Buscar tokens, cores, regras..." />
+      </div>
+
+      <nav>
+        <div class="nav-section">
+          <div class="nav-label">Foundations</div>
+          <ul class="nav-list" id="nav">
+            <li class="nav-item active" data-target="overview"><span class="dot"></span>Overview</li>
+            <li class="nav-item" data-target="colors"><span class="dot"></span>Cores <span class="count">84</span></li>
+            <li class="nav-item" data-target="typography"><span class="dot"></span>Tipografia <span class="count">49</span></li>
+            <li class="nav-item" data-target="spacing"><span class="dot"></span>Espaçamento <span class="count">8</span></li>
+            <li class="nav-item" data-target="radius"><span class="dot"></span>Radius <span class="count">7</span></li>
+            <li class="nav-item" data-target="rules"><span class="dot"></span>Regras</li>
+            <li class="nav-item" data-target="downloads"><span class="dot"></span>Downloads</li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="theme-toggle" role="tablist" aria-label="Tema">
+          <button data-theme-btn="dark" class="active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            Dark
+          </button>
+          <button data-theme-btn="light">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            Light
+          </button>
+        </div>
+        <div class="sidebar-meta">Cores: Radix · Tipo: Material 3</div>
+      </div>
+    </aside>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+      <!-- HERO -->
+      <section id="overview" class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="reveal in">
+              <div class="eyebrow">A library for builders</div>
+              <h1 class="section-title">
+                Design system <br />
+                <span class="it">vivo, copiável,</span> <br />
+                pronto para enviar.
+              </h1>
+              <p class="section-desc">
+                Tokens de cor (Radix UI), tipografia (Material 3 + Inter) e espaçamento
+                centralizados em uma única página. Clique em qualquer swatch para copiar,
+                exporte escalas inteiras como CSS, Tailwind ou JSON.
+              </p>
+              <div class="hero-actions">
+                <button class="btn btn-primary" data-target="colors" data-scroll>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Explorar tokens
+                </button>
+                <button class="btn btn-ghost" id="dlAllJson">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                  Baixar tudo (.zip JSON)
+                </button>
+              </div>
+            </div>
+            <div class="hero-stats reveal-stagger in">
+              <div class="hero-stat">
+                <div class="num"><span class="accent">7</span> escalas</div>
+                <div class="lbl">Color groups</div>
+              </div>
+              <div class="hero-stat">
+                <div class="num">84 <span class="accent">tons</span></div>
+                <div class="lbl">12 steps por escala</div>
+              </div>
+              <div class="hero-stat">
+                <div class="num">49 <span class="accent">type</span></div>
+                <div class="lbl">Display · Heading · Body</div>
+              </div>
+              <div class="hero-stat">
+                <div class="num">2 <span class="accent">temas</span></div>
+                <div class="lbl">Light + Dark</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COLORS -->
+      <section id="colors">
+        <div class="container">
+          <div class="reveal">
+            <div class="eyebrow">01 — Foundations</div>
+            <h2 class="section-title">Cores <span class="it">Radix · 12 steps</span></h2>
+            <p class="section-desc">
+              Cada escala segue os 12 steps semânticos do Radix UI: backgrounds (1–2),
+              componentes (3–5), bordas (6–8), sólidos (9–10) e texto (11–12). Clique
+              em qualquer tom para copiar o hex. Use os botões da escala para exportar
+              em CSS, Tailwind ou JSON.
+            </p>
+          </div>
+          <div id="colorsRoot"></div>
+        </div>
+      </section>
+
+      <!-- TYPOGRAPHY -->
+      <section id="typography">
+        <div class="container">
+          <div class="reveal">
+            <div class="eyebrow">02 — Foundations</div>
+            <h2 class="section-title">Tipografia <span class="it">Inter · única família</span></h2>
+            <p class="section-desc">
+              Inter é família primária <em>e</em> secundária do PQN — sem Roboto, sem Be Vietnam Pro.
+              Cada estilo é nomeado como <code>Categoria/Peso/Tamanho</code> (ex:
+              <code>Display/Extrabold/72</code>) e pode ser copiado individualmente,
+              por peso ou pela categoria inteira.
+            </p>
+          </div>
+          <div id="typeRoot"></div>
+        </div>
+      </section>
+
+      <!-- SPACING -->
+      <section id="spacing">
+        <div class="container">
+          <div class="reveal">
+            <div class="eyebrow">03 — Foundations</div>
+            <h2 class="section-title">Espaçamento <span class="it">grid 8dp</span></h2>
+            <p class="section-desc">
+              Componentes e layout em grid de 8dp; tipografia em grid de 4dp.
+              Touch target mínimo de 48×48dp. Tudo múltiplo de 4 ou 8.
+            </p>
+          </div>
+          <div class="spacing-list reveal-stagger" id="spacingRoot"></div>
+        </div>
+      </section>
+
+      <!-- RADIUS -->
+      <section id="radius">
+        <div class="container">
+          <div class="reveal">
+            <div class="eyebrow">04 — Foundations</div>
+            <h2 class="section-title">Radius <span class="it">cantos</span></h2>
+            <p class="section-desc">Escala de border-radius alinhada ao grid 4dp.</p>
+          </div>
+          <div class="radius-grid reveal-stagger" id="radiusRoot"></div>
+        </div>
+      </section>
+
+      <!-- RULES -->
+      <section id="rules">
+        <div class="container">
+          <div class="reveal">
+            <div class="eyebrow">05 — Reference</div>
+            <h2 class="section-title">Regras <span class="it">do sistema</span></h2>
+            <p class="section-desc">
+              Princípios extraídos do <code>design-system-rules.md</code>. Use-os como
+              guia ao tomar decisões fora dos tokens documentados.
+            </p>
+          </div>
+          <div class="rule-grid reveal-stagger" id="rulesRoot"></div>
+        </div>
+      </section>
+
+      <!-- DOWNLOADS -->
+      <section id="downloads">
+        <div class="container">
+          <div class="reveal">
+            <div class="eyebrow">06 — Export</div>
+            <h2 class="section-title">Downloads <span class="it">tudo organizado</span></h2>
+            <p class="section-desc">
+              Baixe pacotes prontos para integrar no seu projeto. Formatos pensados
+              para devs reais — sem dependência do Figma.
+            </p>
+          </div>
+          <div class="download-grid reveal-stagger" id="downloadsRoot"></div>
+        </div>
+      </section>
+
+      <footer style="padding: 64px 0; border-top: 1px solid var(--border);">
+        <div class="container" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="brand-mark" style="width:32px; height:32px; font-size:18px;">P</div>
+            <div style="font-size:13px; color:var(--text-2);">
+              PQN Design System · construído com <span style="font-family:var(--font-display); font-style:italic; color:var(--principal-9);">cuidado</span>
+            </div>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:11px; color:var(--text-3);">
+            v1.0.0 · 2026
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- ================= TOAST ================= -->
+    <div class="toast" id="toast">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      <span id="toastText">Copiado!</span>
+    </div>
+
+    <script>
+      /* ============================================================
+         TOKENS
+         ============================================================ */
+      const SCALES = {
+        Gray:      { label: "neutra",   group: "Primitivas" },
+        Principal: { label: "marca",    group: "Primitivas" },
+        Segundaria:{ label: "secundária", group: "Primitivas", display: "Segundária" },
+        Vermelho:  { label: "error",    group: "Semânticas" },
+        Amarelo:   { label: "warning",  group: "Semânticas" },
+        Green:     { label: "success",  group: "Semânticas" },
+        Azul:      { label: "info",     group: "Semânticas" },
+      };
+
+      const COLORS = {
+        light: {
+          Gray:       ["#FCFCFC","#F9F9F9","#F0F0F0","#E8E8E8","#E0E0E0","#D9D9D9","#CECECE","#BBBBBB","#8D8D8D","#838383","#646464","#202020"],
+          Principal:  ["#FFFCFB","#FFF5EE","#FFE6D7","#FFD5C0","#FFC5AA","#F3B094","#E49678","#D47A58","#E25112","#D34D13","#BD400E","#5D2A13"],
+          Segundaria: ["#FEFCFF","#FDF7FD","#FBEBFB","#F7DEF8","#F2D1F3","#E9C2EC","#DEADE3","#CF91D8","#AB4ABA","#A144AF","#953EA3","#53195D"],
+          Vermelho:   ["#FFFCFC","#FFF7F7","#FEEBEC","#FFDBDC","#FFCDCE","#FDBDBE","#F4A9AA","#EB8E90","#E5484D","#DC3E42","#CE2C31","#641723"],
+          Amarelo:    ["#FEFDFB","#FEFBE9","#FFF7C2","#FFEE9C","#FBE577","#F3D673","#E9C162","#E2A336","#FFC53D","#FFBA18","#AB6400","#4F3422"],
+          Green:      ["#FBFEFC","#F4FBF6","#E6F6EB","#D6F1DF","#C4E8D1","#ADDDC0","#8ECEB0","#5BB992","#30A476","#2B9A6C","#21835D","#193B30"],
+          Azul:       ["#FAFDFE","#F2FAFB","#DEF7F9","#CAF1F6","#B5E9F0","#9DDDE7","#7DCEDC","#3DB9CF","#00A2C7","#0797B9","#107D98","#0D3C48"],
+        },
+        dark: {
+          Gray:       ["#111111","#191919","#222222","#2A2A2A","#313131","#3A3A3A","#484848","#606060","#6E6E6E","#7B7B7B","#B4B4B4","#EEEEEE"],
+          Principal:  ["#1C1008","#25150A","#381F0D","#4B2A0F","#5C3512","#6F4119","#875122","#AD652C","#E25619","#EC6D33","#F5924A","#FBBF8A"],
+          Segundaria: ["#181118","#201320","#351A35","#451D47","#512454","#5E3061","#734079","#92549C","#AB4ABA","#B658C4","#E796F3","#F4D4F4"],
+          Vermelho:   ["#191111","#201314","#3B1219","#500F1C","#611623","#72232D","#8C333A","#B54548","#E5484D","#EC5D5E","#FF9592","#FFD1D9"],
+          Amarelo:    ["#16120C","#1D180F","#302008","#3F2700","#4D3000","#5C3D05","#714F19","#8F6424","#FFC53D","#FFD60A","#FFCA16","#FFE7B3"],
+          Green:      ["#0E1513","#121B18","#132D23","#113B29","#174937","#205743","#28684F","#2F7C5E","#30A478","#33B082","#3DD69B","#B1F1D3"],
+          Azul:       ["#0B161A","#101B20","#082C36","#003848","#004558","#045468","#12677E","#11809C","#00A2C7","#23AFD0","#4CCCE6","#B6ECF7"],
+        },
+      };
+
+      /* Inter é família primária E secundária do PQN.
+         Estrutura: Categoria → Peso → Tamanhos.
+         Nome canônico: Categoria/Peso/Tamanho — ex: Display/Extrabold/72 */
+      const TYPE = {
+        Display: {
+          desc: "Inter · line-height 110% · letter-spacing 1px",
+          sample: "Smarter ops",
+          lh: 1.1,
+          ls: 1,
+          weights: {
+            Extrabold: { weight: 800, sizes: [72, 68, 64, 60, 56, 52, 48, 44, 40, 36, 32] },
+          }
+        },
+        Heading: {
+          desc: "Inter · line-height 100% · letter-spacing 0",
+          sample: "Section title",
+          lh: 1,
+          ls: 0,
+          weights: {
+            Extrabold: { weight: 800, sizes: [32, 28, 24, 20, 18, 16] },
+            Bold:      { weight: 700, sizes: [32, 28, 24, 20, 18, 16] },
+            Semibold:  { weight: 600, sizes: [32, 28, 24, 20, 18, 16] },
+          }
+        },
+        Body: {
+          desc: "Inter · line-height 100% · letter-spacing 0",
+          sample: "The quick brown fox jumps over the lazy dog.",
+          lh: 1,
+          ls: 0,
+          weights: {
+            Bold:     { weight: 700, sizes: [20, 18, 16, 14, 12] },
+            Semibold: { weight: 600, sizes: [20, 18, 16, 14, 12] },
+            Medium:   { weight: 500, sizes: [20, 18, 16, 14, 12] },
+            Regular:  { weight: 400, sizes: [20, 18, 16, 14, 12] },
+          }
+        }
+      };
+
+      const SPACING = [
+        { token: "4dp",  px: 4,  use: "Espaço mínimo, gap entre ícone e label" },
+        { token: "8dp",  px: 8,  use: "Gap entre elementos pequenos, padding compacto" },
+        { token: "12dp", px: 12, use: "Padding interno de componentes pequenos" },
+        { token: "16dp", px: 16, use: "Padding padrão, margem lateral de tela" },
+        { token: "24dp", px: 24, use: "Espaço entre grupos, padding de cards" },
+        { token: "32dp", px: 32, use: "Separação entre seções" },
+        { token: "48dp", px: 48, use: "Touch target mínimo, espaço grande" },
+        { token: "64dp", px: 64, use: "Espaços maiores entre seções" },
+      ];
+
+      const RADIUS = [
+        { token: "radius-none", val: 0 },
+        { token: "radius-xs",   val: 4 },
+        { token: "radius-sm",   val: 6 },
+        { token: "radius-md",   val: 8 },
+        { token: "radius-lg",   val: 12 },
+        { token: "radius-xl",   val: 16 },
+        { token: "radius-full", val: 999 },
+      ];
+
+      const RULES = [
+        { num: "01", title: "Steps semânticos", text: "Nunca escolha um step por estética. Sempre use 1–2 para background, 3–5 para componentes, 6–8 para bordas, 9–10 sólidos, 11–12 texto." },
+        { num: "02", title: "Uma escala accent", text: "Defina uma cor de marca (Principal) e aplique consistentemente. Resista à tentação de adicionar cores 'pra variar'." },
+        { num: "03", title: "Um cinza", text: "Pareie com o hue do accent. Para o PQN, Gray neutro funciona bem com Principal (Orange) e Segundária (Purple)." },
+        { num: "04", title: "Foreground branco", text: "Use texto branco no Step 9 da maioria das escalas. Exceções: Sky, Mint, Lime, Yellow, Amber — exigem texto escuro." },
+        { num: "05", title: "Grid 8dp", text: "Todo padding, margin e gap é múltiplo de 8. Use 4dp apenas como sub-unidade para gaps muito pequenos (ícone ↔ label)." },
+        { num: "06", title: "Touch target 48dp", text: "Mínimo absoluto de 48×48dp para qualquer área tocável. Se o ícone visual é menor, expanda o hit area com hitSlop ou padding." },
+        { num: "07", title: "Type scale Material 3", text: "Display (impacto), Headline (títulos de página), Title (subtítulos), Body (parágrafos), Label (componentes interativos)." },
+        { num: "08", title: "Não customize Radix", text: "Se precisar de outra escala, adicione uma nova ao lado — não modifique os steps existentes do Radix." },
+      ];
+
+      /* ============================================================
+         RENDER — COLORS
+         ============================================================ */
+      const colorsRoot = document.getElementById("colorsRoot");
+      const currentTheme = () => document.documentElement.dataset.theme;
+
+      function renderColors() {
+        const theme = currentTheme();
+        colorsRoot.innerHTML = "";
+        Object.entries(SCALES).forEach(([key, meta]) => {
+          const scale = COLORS[theme][key];
+          const display = meta.display || key;
+          const wrap = document.createElement("div");
+          wrap.className = "scale reveal";
+          wrap.dataset.search = (display + " " + meta.label + " " + meta.group).toLowerCase();
+          wrap.innerHTML = `
+            <div class="scale-head">
+              <div class="scale-meta">
+                <div class="scale-chip" style="background:${scale[8]}"></div>
+                <div>
+                  <div class="scale-name">${display} <small>${meta.label}</small></div>
+                  <div style="font-size:11px;color:var(--text-3);font-family:var(--font-mono);margin-top:4px;">${meta.group} · 12 steps</div>
+                </div>
+              </div>
+              <div class="scale-actions">
+                <button class="btn btn-icon" data-copy-css="${key}" title="Copiar CSS variables">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  <span style="font-size:11px;font-family:var(--font-mono);">CSS</span>
+                </button>
+                <button class="btn btn-icon" data-copy-tw="${key}" title="Copiar Tailwind config">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4M6 8l-4 4 4 4M14.5 4l-5 16"/></svg>
+                  <span style="font-size:11px;font-family:var(--font-mono);">TW</span>
+                </button>
+                <button class="btn btn-icon" data-copy-json="${key}" title="Copiar JSON">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1M16 3h1a2 2 0 0 1 2 2v5a2 2 0 0 0 2 2 2 2 0 0 0-2 2v5a2 2 0 0 1-2 2h-1"/></svg>
+                  <span style="font-size:11px;font-family:var(--font-mono);">JSON</span>
+                </button>
+              </div>
+            </div>
+            <div class="swatch-grid">
+              ${scale.map((hex, i) => `
+                <div class="swatch" data-hex="${hex}" data-step="${i+1}">
+                  <div class="swatch-color" style="background:${hex}"></div>
+                  <div class="swatch-info">
+                    <div class="swatch-step">${key}.${i+1}</div>
+                    <div class="swatch-hex">${hex}</div>
+                  </div>
+                  <div class="swatch-copied">COPIADO</div>
+                </div>
+              `).join("")}
+            </div>
+          `;
+          colorsRoot.appendChild(wrap);
+        });
+        bindSwatches();
+        bindScaleActions();
+        observeReveals();
+      }
+
+      function bindSwatches() {
+        document.querySelectorAll(".swatch").forEach(el => {
+          el.addEventListener("click", () => {
+            const hex = el.dataset.hex;
+            copy(hex);
+            el.classList.add("copied");
+            setTimeout(() => el.classList.remove("copied"), 900);
+            toast(`${hex} copiado`);
+          });
+        });
+      }
+
+      function bindScaleActions() {
+        document.querySelectorAll("[data-copy-css]").forEach(b => {
+          b.addEventListener("click", () => {
+            const key = b.dataset.copyCss;
+            const css = scaleToCss(key);
+            copy(css);
+            toast(`${key} → CSS variables`);
+          });
+        });
+        document.querySelectorAll("[data-copy-tw]").forEach(b => {
+          b.addEventListener("click", () => {
+            const key = b.dataset.copyTw;
+            const tw = scaleToTailwind(key);
+            copy(tw);
+            toast(`${key} → Tailwind config`);
+          });
+        });
+        document.querySelectorAll("[data-copy-json]").forEach(b => {
+          b.addEventListener("click", () => {
+            const key = b.dataset.copyJson;
+            const json = JSON.stringify(scaleToJson(key), null, 2);
+            copy(json);
+            toast(`${key} → JSON`);
+          });
+        });
+      }
+
+      function scaleToCss(key) {
+        const theme = currentTheme();
+        const scale = COLORS[theme][key];
+        const slug = key.toLowerCase();
+        return `:root {\n${scale.map((h, i) => `  --${slug}-${i+1}: ${h};`).join("\n")}\n}`;
+      }
+      function scaleToTailwind(key) {
+        const theme = currentTheme();
+        const scale = COLORS[theme][key];
+        const slug = key.toLowerCase();
+        const lines = scale.map((h, i) => `      "${i+1}": "${h}",`).join("\n");
+        return `// tailwind.config.js\ntheme: {\n  extend: {\n    colors: {\n      "${slug}": {\n${lines}\n      }\n    }\n  }\n}`;
+      }
+      function scaleToJson(key) {
+        const theme = currentTheme();
+        const scale = COLORS[theme][key];
+        const out = {};
+        scale.forEach((h, i) => out[i+1] = h);
+        return { [key]: out };
+      }
+
+      /* ============================================================
+         RENDER — TYPOGRAPHY
+         ============================================================ */
+      const typeRoot = document.getElementById("typeRoot");
+
+      function renderType() {
+        typeRoot.innerHTML = "";
+        Object.entries(TYPE).forEach(([category, cat]) => {
+          const totalSizes = Object.values(cat.weights).reduce((s, w) => s + w.sizes.length, 0);
+          const catWrap = document.createElement("div");
+          catWrap.className = "type-category reveal";
+          catWrap.dataset.search = (category + " " + cat.desc).toLowerCase();
+          catWrap.innerHTML = `
+            <div class="type-group-head">
+              <div>
+                <div class="type-group-name">${category} <small>${totalSizes} estilos</small></div>
+                <div class="type-group-desc">${cat.desc}</div>
+              </div>
+              <button class="btn btn-ghost" data-copy-type-category="${category}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copiar ${category} (CSS)
+              </button>
+            </div>
+
+            ${Object.entries(cat.weights).map(([weightName, w]) => `
+              <div class="type-weight-block">
+                <div class="type-weight-head">
+                  <div class="type-weight-label">
+                    <span class="type-weight-tag">${category}/${weightName}</span>
+                    <span class="type-weight-meta">${w.weight} · ${w.sizes.length} tamanhos</span>
+                  </div>
+                  <button class="btn btn-icon btn-ghost-tiny" data-copy-type-weight='${category}|${weightName}' title="Copiar peso completo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <span style="font-size:11px;font-family:var(--font-mono);">CSS</span>
+                  </button>
+                </div>
+                <div class="type-grid type-stagger">
+                  ${w.sizes.map(size => {
+                    const item = { category, weightName, weight: w.weight, size, lh: cat.lh, ls: cat.ls, sample: cat.sample, name: `${category}/${weightName}/${size}` };
+                    return `
+                      <article class="type-card" data-search="${item.name.toLowerCase()}">
+                        <div class="type-preview" style="font-size:${size}px;font-weight:${w.weight};line-height:${cat.lh};letter-spacing:${cat.ls}px;">
+                          <span class="type-preview-text">${cat.sample}</span>
+                        </div>
+                        <div class="type-meta">
+                          <div class="type-name">${item.name}</div>
+                          <div class="type-specs">${size}px · ${w.weight}</div>
+                          <div class="type-specs">lh ${cat.lh*100}% · ls ${cat.ls}</div>
+                          <button class="btn btn-icon" data-copy-type='${JSON.stringify(item).replace(/'/g, "&apos;")}' title="Copiar CSS">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                          </button>
+                        </div>
+                      </article>
+                    `;
+                  }).join("")}
+                </div>
+              </div>
+            `).join("")}
+          `;
+          typeRoot.appendChild(catWrap);
+        });
+        bindTypeCopy();
+        observeReveals();
+        observeTypeCards();
+      }
+
+      function bindTypeCopy() {
+        document.querySelectorAll("[data-copy-type]").forEach(b => {
+          b.addEventListener("click", e => {
+            e.stopPropagation();
+            const item = JSON.parse(b.dataset.copyType.replace(/&apos;/g, "'"));
+            const css = typeToCss(item);
+            copy(css);
+            toast(`${item.name} copiado`);
+          });
+        });
+        document.querySelectorAll("[data-copy-type-weight]").forEach(b => {
+          b.addEventListener("click", e => {
+            e.stopPropagation();
+            const [category, weightName] = b.dataset.copyTypeWeight.split("|");
+            const w = TYPE[category].weights[weightName];
+            const cat = TYPE[category];
+            const css = w.sizes.map(size => typeToCss({
+              category, weightName, weight: w.weight, size, lh: cat.lh, ls: cat.ls,
+              name: `${category}/${weightName}/${size}`
+            })).join("\n\n");
+            copy(css);
+            toast(`${category}/${weightName} copiado`);
+          });
+        });
+        document.querySelectorAll("[data-copy-type-category]").forEach(b => {
+          b.addEventListener("click", e => {
+            e.stopPropagation();
+            const category = b.dataset.copyTypeCategory;
+            const cat = TYPE[category];
+            const blocks = [];
+            Object.entries(cat.weights).forEach(([weightName, w]) => {
+              w.sizes.forEach(size => {
+                blocks.push(typeToCss({
+                  category, weightName, weight: w.weight, size, lh: cat.lh, ls: cat.ls,
+                  name: `${category}/${weightName}/${size}`
+                }));
+              });
+            });
+            copy(blocks.join("\n\n"));
+            toast(`${category} → CSS copiado`);
+          });
+        });
+
+        /* Hover replay: re-run the fade animation on the preview text */
+        document.querySelectorAll(".type-card").forEach(card => {
+          card.addEventListener("mouseenter", () => {
+            const t = card.querySelector(".type-preview-text");
+            if (!t) return;
+            t.classList.remove("anim-in");
+            void t.offsetWidth; /* force reflow */
+            t.classList.add("anim-in");
+          });
+        });
+      }
+
+      function typeToCss(item) {
+        const slug = `${item.category}-${item.weightName}-${item.size}`.toLowerCase();
+        return `.${slug} {\n  font-family: "Inter", sans-serif;\n  font-size: ${item.size}px;\n  font-weight: ${item.weight};\n  line-height: ${item.lh};\n  letter-spacing: ${item.ls}px;\n}`;
+      }
+
+      /* IO observer that fires .anim-in on each .type-preview-text with stagger */
+      let typeObserver;
+      function observeTypeCards() {
+        if (!typeObserver) {
+          typeObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                const grid = e.target;
+                const items = grid.querySelectorAll(".type-preview-text");
+                items.forEach((el, i) => {
+                  setTimeout(() => el.classList.add("anim-in"), i * 60);
+                });
+                typeObserver.unobserve(grid);
+              }
+            });
+          }, { threshold: .15, rootMargin: "0px 0px -6% 0px" });
+        }
+        document.querySelectorAll(".type-stagger").forEach(g => typeObserver.observe(g));
+      }
+
+      /* ============================================================
+         RENDER — SPACING
+         ============================================================ */
+      const spacingRoot = document.getElementById("spacingRoot");
+      function renderSpacing() {
+        spacingRoot.innerHTML = SPACING.map(s => `
+          <div class="space-row" data-search="${s.token} ${s.use.toLowerCase()}">
+            <div class="space-token">${s.token}</div>
+            <div>
+              <div class="space-bar" style="width:${(s.px/64)*100}%;max-width:100%;"></div>
+              <div style="font-size:12px;color:var(--text-3);margin-top:6px;">${s.use}</div>
+            </div>
+            <div class="space-px">${s.px}px</div>
+            <button class="btn btn-icon" data-copy-text="${s.px}px" title="Copiar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+        `).join("");
+        bindCopyText();
+        observeReveals();
+      }
+
+      /* ============================================================
+         RENDER — RADIUS
+         ============================================================ */
+      const radiusRoot = document.getElementById("radiusRoot");
+      function renderRadius() {
+        radiusRoot.innerHTML = RADIUS.map(r => `
+          <div class="radius-card" data-copy-text="${r.val}px" data-search="${r.token}" style="border-radius:${r.val}px;">
+            <div class="radius-shape" style="border-radius:${Math.min(r.val, 32)}px;"></div>
+            <div class="radius-name">${r.token}</div>
+            <div class="radius-val">${r.val}px</div>
+          </div>
+        `).join("");
+        bindCopyText();
+        observeReveals();
+      }
+
+      /* ============================================================
+         RENDER — RULES
+         ============================================================ */
+      const rulesRoot = document.getElementById("rulesRoot");
+      function renderRules() {
+        rulesRoot.innerHTML = RULES.map(r => `
+          <article class="rule-card" data-search="${r.title.toLowerCase()} ${r.text.toLowerCase()}">
+            <div class="rule-num">${r.num}</div>
+            <h3 class="rule-title">${r.title}</h3>
+            <p class="rule-text">${r.text}</p>
+          </article>
+        `).join("");
+        observeReveals();
+      }
+
+      /* ============================================================
+         RENDER — DOWNLOADS
+         ============================================================ */
+      const downloadsRoot = document.getElementById("downloadsRoot");
+      const DOWNLOADS = [
+        {
+          title: "Light Tokens · JSON",
+          desc: "Todas as escalas no tema claro, formato {scale: {step: hex}}.",
+          meta: "light.tokens.json",
+          icon: "sun",
+          action: () => downloadJson(buildJson("light"), "pqn-light.tokens.json"),
+        },
+        {
+          title: "Dark Tokens · JSON",
+          desc: "Mesma estrutura, escala dark mode pronta para integrar.",
+          meta: "dark.tokens.json",
+          icon: "moon",
+          action: () => downloadJson(buildJson("dark"), "pqn-dark.tokens.json"),
+        },
+        {
+          title: "CSS Variables",
+          desc: "Arquivo .css com :root + [data-theme='dark']. Plug & play.",
+          meta: "tokens.css",
+          icon: "code",
+          action: () => downloadText(buildCss(), "pqn-tokens.css"),
+        },
+        {
+          title: "Tailwind Config",
+          desc: "Snippet pronto para colar no theme.extend.colors do tailwind.config.js.",
+          meta: "tailwind.config.js",
+          icon: "wind",
+          action: () => downloadText(buildTailwind(), "pqn-tailwind-colors.js"),
+        },
+        {
+          title: "Typography · CSS",
+          desc: "Display, Heading e Body como classes utilitárias prontas.",
+          meta: "typography.css",
+          icon: "type",
+          action: () => downloadText(buildTypeCss(), "pqn-typography.css"),
+        },
+        {
+          title: "Bundle Completo",
+          desc: "Tudo num único arquivo: light + dark + type + spacing + radius.",
+          meta: "pqn-design-system.json",
+          icon: "package",
+          action: () => downloadJson(buildBundle(), "pqn-design-system.json"),
+        },
+      ];
+
+      const ICONS = {
+        sun:   `<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>`,
+        moon:  `<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>`,
+        code:  `<path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/>`,
+        wind:  `<path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2M9.6 4.6A2 2 0 1 1 11 8H2M12.6 19.4A2 2 0 1 0 14 16H2"/>`,
+        type:  `<path d="M4 7V4h16v3M9 20h6M12 4v16"/>`,
+        package:`<path d="M16.5 9.4 7.5 4.21M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/>`,
+      };
+
+      function renderDownloads() {
+        downloadsRoot.innerHTML = DOWNLOADS.map((d, i) => `
+          <div class="download-card" data-dl="${i}" data-search="${d.title.toLowerCase()} ${d.desc.toLowerCase()}">
+            <div class="download-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[d.icon]}</svg>
+            </div>
+            <div class="download-title">${d.title}</div>
+            <div class="download-desc">${d.desc}</div>
+            <div class="download-meta">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+              ${d.meta}
+            </div>
+          </div>
+        `).join("");
+        document.querySelectorAll("[data-dl]").forEach(el => {
+          el.addEventListener("click", () => {
+            const i = parseInt(el.dataset.dl);
+            DOWNLOADS[i].action();
+            toast(`${DOWNLOADS[i].meta} baixado`);
+          });
+        });
+        observeReveals();
+      }
+
+      /* ============================================================
+         BUILDERS
+         ============================================================ */
+      function buildJson(theme) {
+        const out = {};
+        Object.keys(SCALES).forEach(key => {
+          const scale = COLORS[theme][key];
+          const obj = {};
+          scale.forEach((h, i) => obj[i+1] = h);
+          out[SCALES[key].display || key] = obj;
+        });
+        return { theme, colors: out };
+      }
+      function buildCss() {
+        const lines = [];
+        ["light", "dark"].forEach(theme => {
+          const sel = theme === "light" ? ":root, [data-theme='light']" : "[data-theme='dark']";
+          lines.push(`${sel} {`);
+          Object.keys(SCALES).forEach(key => {
+            const slug = key.toLowerCase();
+            COLORS[theme][key].forEach((h, i) => {
+              lines.push(`  --${slug}-${i+1}: ${h};`);
+            });
+          });
+          lines.push(`}\n`);
+        });
+        return lines.join("\n");
+      }
+      function buildTailwind() {
+        const obj = {};
+        Object.keys(SCALES).forEach(key => {
+          const slug = key.toLowerCase();
+          obj[slug] = {};
+          COLORS.light[key].forEach((h, i) => { obj[slug][i+1] = h; });
+        });
+        return `// tailwind.config.js · light tokens\nmodule.exports = {\n  theme: {\n    extend: {\n      colors: ${JSON.stringify(obj, null, 8).replace(/\n/g, "\n      ")}\n    }\n  }\n}`;
+      }
+      function buildTypeCss() {
+        const out = [
+          "/* ============================================================",
+          "   PQN — Typography tokens",
+          "   Family: Inter (primária e secundária)",
+          "   Naming: .{categoria}-{peso}-{tamanho}",
+          "   ============================================================ */",
+          "",
+        ];
+        Object.entries(TYPE).forEach(([category, cat]) => {
+          out.push(`/* ── ${category} · ${cat.desc} ── */`);
+          Object.entries(cat.weights).forEach(([weightName, w]) => {
+            out.push(`/* ${category}/${weightName} (${w.weight}) */`);
+            w.sizes.forEach(size => {
+              out.push(typeToCss({
+                category, weightName, weight: w.weight, size,
+                lh: cat.lh, ls: cat.ls,
+                name: `${category}/${weightName}/${size}`
+              }));
+              out.push("");
+            });
+          });
+          out.push("");
+        });
+        return out.join("\n");
+      }
+      function buildBundle() {
+        return {
+          name: "PQN Design System",
+          version: "1.0.0",
+          colors: {
+            light: buildJson("light").colors,
+            dark: buildJson("dark").colors,
+          },
+          typography: TYPE,
+          spacing: SPACING,
+          radius: RADIUS,
+        };
+      }
+
+      /* ============================================================
+         UTILS — copy / download / toast
+         ============================================================ */
+      function copy(text) {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text);
+        } else {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select(); document.execCommand("copy");
+          ta.remove();
+        }
+      }
+      function downloadText(text, filename) {
+        const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+        triggerDl(blob, filename);
+      }
+      function downloadJson(obj, filename) {
+        const blob = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" });
+        triggerDl(blob, filename);
+      }
+      function triggerDl(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = filename;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+      const toastEl = document.getElementById("toast");
+      const toastText = document.getElementById("toastText");
+      let toastTimer;
+      function toast(msg) {
+        toastText.textContent = msg;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2400);
+      }
+
+      function bindCopyText() {
+        document.querySelectorAll("[data-copy-text]").forEach(el => {
+          el.addEventListener("click", e => {
+            e.stopPropagation();
+            copy(el.dataset.copyText);
+            toast(`${el.dataset.copyText} copiado`);
+          });
+        });
+      }
+
+      /* ============================================================
+         THEME
+         ============================================================ */
+      document.querySelectorAll("[data-theme-btn]").forEach(b => {
+        b.addEventListener("click", () => {
+          const t = b.dataset.themeBtn;
+          document.documentElement.dataset.theme = t;
+          document.querySelectorAll("[data-theme-btn]").forEach(x => x.classList.toggle("active", x === b));
+          renderColors();
+        });
+      });
+
+      /* ============================================================
+         SCROLL SPY + NAV
+         ============================================================ */
+      const navItems = document.querySelectorAll(".nav-item");
+      navItems.forEach(item => {
+        item.addEventListener("click", () => {
+          const id = item.dataset.target;
+          document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+          if (window.innerWidth <= 980) document.getElementById("sidebar").classList.remove("open");
+        });
+      });
+      document.querySelectorAll("[data-scroll]").forEach(b => {
+        b.addEventListener("click", () => {
+          document.getElementById(b.dataset.target)?.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      const spy = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            navItems.forEach(n => n.classList.toggle("active", n.dataset.target === e.target.id));
+          }
+        });
+      }, { rootMargin: "-40% 0px -55% 0px", threshold: 0 });
+      document.querySelectorAll("section").forEach(s => spy.observe(s));
+
+      /* ============================================================
+         REVEAL OBSERVER
+         ============================================================ */
+      let revealObserver;
+      function observeReveals() {
+        if (!revealObserver) {
+          revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                e.target.classList.add("in");
+                revealObserver.unobserve(e.target);
+              }
+            });
+          }, { threshold: .12, rootMargin: "0px 0px -8% 0px" });
+        }
+        document.querySelectorAll(".reveal:not(.in), .reveal-stagger:not(.in)").forEach(el => {
+          revealObserver.observe(el);
+        });
+      }
+
+      /* ============================================================
+         SEARCH
+         ============================================================ */
+      const searchInput = document.getElementById("search");
+      searchInput.addEventListener("input", () => {
+        const q = searchInput.value.trim().toLowerCase();
+        document.querySelectorAll("[data-search]").forEach(el => {
+          if (!q) {
+            el.style.display = "";
+            el.style.opacity = "";
+            return;
+          }
+          const match = el.dataset.search.includes(q);
+          el.style.display = match ? "" : "none";
+        });
+      });
+
+      /* ============================================================
+         MENU TOGGLE
+         ============================================================ */
+      document.getElementById("menuToggle").addEventListener("click", () => {
+        document.getElementById("sidebar").classList.toggle("open");
+      });
+
+      /* ============================================================
+         DOWNLOAD ALL (HERO)
+         ============================================================ */
+      document.getElementById("dlAllJson").addEventListener("click", () => {
+        downloadJson(buildBundle(), "pqn-design-system.json");
+        toast("Bundle completo baixado");
+      });
+
+      /* ============================================================
+         INIT
+         ============================================================ */
+      renderColors();
+      renderType();
+      renderSpacing();
+      renderRadius();
+      renderRules();
+      renderDownloads();
+      observeReveals();
+    </script>
+  </body>
+</html>
