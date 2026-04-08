@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
 
@@ -34,8 +34,7 @@
         /* Brand — Segundária (Purple) */
         --segundaria-9:#AB4ABA;
 
-        /* Type */
-        --font-display: "Instrument Serif", "Times New Roman", serif;
+        /* Type — Inter é a única família */
         --font-sans: "Inter", system-ui, -apple-system, sans-serif;
         --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
@@ -152,7 +151,7 @@
         display: grid;
         place-items: center;
         color: #fff;
-        font-family: var(--font-display);
+        font-family: var(--font-sans);
         font-style: italic;
         font-size: 22px;
         font-weight: 400;
@@ -172,7 +171,7 @@
       }
       .brand-text { line-height: 1.1; }
       .brand-text strong { display:block; font-weight: 800; font-size: 15px; letter-spacing: -.01em; }
-      .brand-text span { font-family: var(--font-display); font-style: italic; font-size: 12px; color: var(--text-2); }
+      .brand-text span { font-family: var(--font-sans); font-style: italic; font-size: 12px; color: var(--text-2); }
 
       .sidebar-search {
         position: relative;
@@ -336,7 +335,7 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        font-family: var(--font-display);
+        font-family: var(--font-sans);
         font-style: italic;
         font-size: 18px;
         color: var(--principal-9);
@@ -356,7 +355,7 @@
         margin-bottom: 24px;
       }
       h1.section-title .it {
-        font-family: var(--font-display);
+        font-family: var(--font-sans);
         font-style: italic;
         font-weight: 400;
         letter-spacing: -.02em;
@@ -371,7 +370,7 @@
         margin-bottom: 16px;
       }
       h2.section-title .it {
-        font-family: var(--font-display);
+        font-family: var(--font-sans);
         font-style: italic;
         font-weight: 400;
         color: var(--text-2);
@@ -506,7 +505,7 @@
         letter-spacing: -.015em;
       }
       .scale-name small {
-        font-family: var(--font-display);
+        font-family: var(--font-sans);
         font-style: italic;
         font-weight: 400;
         font-size: 16px;
@@ -580,6 +579,43 @@
       }
       .swatch.copied .swatch-copied { opacity: 1; transform: scale(1); }
 
+      /* Dual dark/light swatch rows */
+      .dual-swatch-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .swatch-divider {
+        height: 1px;
+        background: var(--border);
+        margin: 12px 0;
+      }
+      .swatch-row-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+      .swatch-row-badge {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border-radius: 4px;
+      }
+      .badge-dark {
+        background: #18181B;
+        color: #A1A1AA;
+        border: 1px solid #3F3F46;
+      }
+      .badge-light {
+        background: #F4F4F5;
+        color: #52525B;
+        border: 1px solid #D4D4D8;
+      }
+
       /* ============================================================
          TYPOGRAPHY
          ============================================================ */
@@ -636,7 +672,7 @@
         will-change: opacity, transform, filter;
       }
       .type-preview-text.anim-in {
-        animation: typeFontReveal .9s var(--ease-out) forwards;
+        animation: typeFontReveal 1.4s var(--ease-out) forwards;
       }
       @keyframes typeFontReveal {
         0% {
@@ -696,7 +732,7 @@
         letter-spacing: -.025em;
       }
       .type-group-name small {
-        font-family: var(--font-display);
+        font-family: var(--font-sans);
         font-style: italic;
         font-weight: 400;
         font-size: 18px;
@@ -781,95 +817,327 @@
       }
 
       /* ============================================================
-         SPACING
+         SPACING — educational
          ============================================================ */
-      .spacing-list {
+      .spacing-edu {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
       }
-      .space-row {
-        display: grid;
-        grid-template-columns: 80px 1fr 100px 36px;
-        gap: 24px;
+
+      /* Group headers inside spacing */
+      .spacing-group-label {
+        display: flex;
         align-items: center;
+        gap: 12px;
+        margin-top: 24px;
+        margin-bottom: 4px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border);
+      }
+      .spacing-group-label:first-child { margin-top: 0; }
+      .spacing-group-label span {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .1em;
+        color: var(--text-3);
+      }
+      .spacing-group-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      .space-row {
         background: var(--surface);
         border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 16px 20px;
-        transition: all var(--d-fast) var(--ease-out);
+        border-radius: 16px;
+        padding: 24px 28px;
+        display: grid;
+        grid-template-columns: 100px 1fr auto;
+        gap: 28px;
+        align-items: start;
+        transition: border-color var(--d-base) var(--ease-out),
+                    background var(--d-base) var(--ease-out),
+                    transform var(--d-base) var(--ease-out);
       }
       .space-row:hover {
         border-color: var(--border-strong);
         background: var(--surface-2);
+        transform: translateY(-1px);
       }
+
+      .space-token-col { display: flex; flex-direction: column; gap: 6px; padding-top: 4px; }
       .space-token {
         font-family: var(--font-mono);
-        font-size: 13px;
-        font-weight: 600;
+        font-size: 15px;
+        font-weight: 700;
         color: var(--text-1);
       }
-      .space-bar {
-        height: 14px;
+      .space-px-val {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--principal-9);
+        font-weight: 600;
+      }
+      .space-var {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--text-3);
+      }
+
+      .space-demos { display: flex; flex-direction: column; gap: 16px; }
+
+      /* Visual slab — exact pixel height */
+      .space-slab-row { display: flex; align-items: center; gap: 12px; }
+      .space-slab-label {
+        font-size: 11px;
+        color: var(--text-3);
+        font-family: var(--font-mono);
+        min-width: 60px;
+        text-align: right;
+      }
+      .space-slab {
+        height: var(--slab-h);
         background: linear-gradient(90deg, var(--principal-9), var(--segundaria-9));
-        border-radius: 4px;
+        border-radius: 3px;
+        opacity: .85;
         position: relative;
         overflow: hidden;
+        flex-shrink: 0;
       }
-      .space-bar::after {
+      .space-slab::after {
         content:"";
         position: absolute; inset:0;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
-        animation: barShine 3s linear infinite;
+        background: linear-gradient(90deg, transparent 30%, rgba(255,255,255,.18) 50%, transparent 70%);
+        animation: barShine 3.5s linear infinite;
       }
       @keyframes barShine {
         0% { transform: translateX(-100%); }
         100% { transform: translateX(100%); }
       }
-      .space-px {
+
+      /* Padding demo */
+      .space-pad-demo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .space-pad-demo-label {
+        font-size: 11px; color: var(--text-3); font-family: var(--font-mono);
+        min-width: 60px; text-align: right;
+      }
+      .space-pad-box {
+        background: var(--surface-2);
+        border: 1px dashed var(--border-strong);
+        border-radius: 8px;
+        position: relative;
+        display: inline-flex;
+      }
+      .space-pad-inner {
+        background: var(--surface-3);
+        border-radius: 6px;
         font-family: var(--font-mono);
-        font-size: 12px;
+        font-size: 11px;
         color: var(--text-2);
-        text-align: right;
+        white-space: nowrap;
+      }
+
+      /* Gap demo */
+      .space-gap-row { display: flex; align-items: center; gap: 8px; }
+      .space-gap-demo-label {
+        font-size: 11px; color: var(--text-3); font-family: var(--font-mono);
+        min-width: 60px; text-align: right;
+      }
+      .space-gap-inner {
+        display: flex;
+        align-items: center;
+      }
+      .space-gap-block {
+        background: var(--surface-3);
+        border: 1px solid var(--border-strong);
+        border-radius: 6px;
+        height: 28px;
+        width: 36px;
+      }
+      .space-gap-spacer {
+        background: rgba(226,81,18,.25);
+        border: 1px dashed rgba(226,81,18,.5);
+        height: 20px;
+        flex-shrink: 0;
+      }
+
+      /* use-tags */
+      .space-use-text {
+        font-size: 13px;
+        color: var(--text-2);
+        line-height: 1.5;
+        margin-bottom: 8px;
+      }
+      .space-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+      .space-tag {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-2);
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        padding: 3px 8px;
+        border-radius: 6px;
+      }
+
+      .space-copy-col { padding-top: 4px; }
+
+      @media (max-width: 980px) {
+        .space-row { grid-template-columns: 80px 1fr; gap: 16px; padding: 18px 20px; }
+        .space-copy-col { display: none; }
       }
 
       /* ============================================================
-         RADIUS
+         RADIUS — educational
          ============================================================ */
-      .radius-grid {
+      .radius-edu {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 16px;
       }
+
       .radius-card {
         background: var(--surface);
         border: 1px solid var(--border);
-        padding: 24px;
-        text-align: center;
+        border-radius: 20px;
+        padding: 28px;
         cursor: pointer;
-        transition: all var(--d-base) var(--ease-out);
+        transition: border-color var(--d-base) var(--ease-out),
+                    background var(--d-base) var(--ease-out),
+                    transform var(--d-base) var(--ease-out);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
       }
       .radius-card:hover {
         border-color: var(--border-strong);
         background: var(--surface-2);
-        transform: translateY(-3px);
+        transform: translateY(-2px);
       }
-      .radius-shape {
-        width: 96px; height: 64px;
-        margin: 0 auto 18px;
-        background: linear-gradient(135deg, var(--principal-9), var(--segundaria-9));
-        position: relative;
+
+      .radius-card-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
       }
+      .radius-token-info { display: flex; flex-direction: column; gap: 4px; }
       .radius-name {
         font-family: var(--font-mono);
-        font-size: 12px;
-        font-weight: 600;
+        font-size: 14px;
+        font-weight: 700;
         color: var(--text-1);
       }
       .radius-val {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--principal-9);
+        font-weight: 600;
+      }
+      .radius-semantic {
         font-size: 11px;
         color: var(--text-3);
+        font-style: italic;
+      }
+
+      /* Main shape preview */
+      .radius-shape-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--surface-2);
+        border-radius: 12px;
+        padding: 20px;
+        min-height: 80px;
+      }
+      .radius-shape {
+        width: 120px; height: 56px;
+        background: linear-gradient(135deg, var(--principal-9), var(--segundaria-9));
+      }
+
+      /* Component mini-previews */
+      .radius-examples {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border-top: 1px dashed var(--border);
+        padding-top: 16px;
+      }
+      .radius-ex-label {
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .1em;
+        color: var(--text-3);
         font-family: var(--font-mono);
+        margin-bottom: 4px;
+      }
+      .radius-ex-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      /* Button example */
+      .rex-btn {
+        background: var(--principal-9);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 8px 16px;
+        border: none;
+        cursor: default;
+        white-space: nowrap;
+      }
+      /* Input example */
+      .rex-input {
+        background: var(--surface-2);
+        border: 1.5px solid var(--border-strong);
+        font-size: 12px;
+        font-family: var(--font-sans);
+        color: var(--text-2);
+        padding: 7px 12px;
+        outline: none;
+        width: 110px;
+      }
+      /* Card example */
+      .rex-card {
+        background: var(--surface-3);
+        border: 1px solid var(--border);
+        padding: 10px 14px;
+        font-size: 11px;
+        color: var(--text-2);
+      }
+      /* Tag/Badge example */
+      .rex-badge {
+        background: rgba(226,81,18,.12);
+        color: var(--principal-9);
+        border: 1px solid rgba(226,81,18,.25);
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 8px;
+        font-family: var(--font-mono);
+        white-space: nowrap;
+      }
+      /* Avatar */
+      .rex-avatar {
+        width: 36px; height: 36px;
+        background: linear-gradient(135deg, var(--principal-9), var(--segundaria-9));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+        flex-shrink: 0;
       }
 
       /* ============================================================
@@ -903,7 +1171,7 @@
       .rule-card:hover::before { transform: scaleX(1); }
 
       .rule-num {
-        font-family: var(--font-display);
+        font-family: var(--font-sans);
         font-style: italic;
         font-size: 32px;
         color: var(--principal-9);
@@ -992,8 +1260,8 @@
          ============================================================ */
       .reveal {
         opacity: 0;
-        transform: translateY(24px);
-        transition: opacity .8s var(--ease-out), transform .8s var(--ease-out);
+        transform: translateY(28px);
+        transition: opacity 1.1s var(--ease-out), transform 1.1s var(--ease-out);
       }
       .reveal.in {
         opacity: 1;
@@ -1001,8 +1269,8 @@
       }
       .reveal-stagger > * {
         opacity: 0;
-        transform: translateY(20px);
-        transition: opacity .6s var(--ease-out), transform .6s var(--ease-out);
+        transform: translateY(22px);
+        transition: opacity .95s var(--ease-out), transform .95s var(--ease-out);
       }
       .reveal-stagger.in > * {
         opacity: 1;
@@ -1241,11 +1509,13 @@
             <div class="eyebrow">03 — Foundations</div>
             <h2 class="section-title">Espaçamento <span class="it">grid 8dp</span></h2>
             <p class="section-desc">
-              Componentes e layout em grid de 8dp; tipografia em grid de 4dp.
-              Touch target mínimo de 48×48dp. Tudo múltiplo de 4 ou 8.
+              Tokens divididos em três grupos — <strong>Micro</strong> (4–8dp) para gaps internos,
+              <strong>Componente</strong> (12–24dp) para padding e espaçamento entre elementos,
+              <strong>Layout</strong> (32–64dp) para separação de seções. Cada token mostra o
+              tamanho exato, um demo de padding, demo de gap e onde usar.
             </p>
           </div>
-          <div class="spacing-list reveal-stagger" id="spacingRoot"></div>
+          <div class="spacing-edu" id="spacingRoot"></div>
         </div>
       </section>
 
@@ -1255,9 +1525,13 @@
           <div class="reveal">
             <div class="eyebrow">04 — Foundations</div>
             <h2 class="section-title">Radius <span class="it">cantos</span></h2>
-            <p class="section-desc">Escala de border-radius alinhada ao grid 4dp.</p>
+            <p class="section-desc">
+              Escala de <code>border-radius</code> alinhada ao grid 4dp. Cada token mostra
+              como o arredondamento fica aplicado em botões, inputs, cards e badges — para
+              você escolher o certo sem precisar adivinhar.
+            </p>
           </div>
-          <div class="radius-grid reveal-stagger" id="radiusRoot"></div>
+          <div class="radius-edu" id="radiusRoot"></div>
         </div>
       </section>
 
@@ -1296,7 +1570,7 @@
           <div style="display:flex; align-items:center; gap:12px;">
             <div class="brand-mark" style="width:32px; height:32px; font-size:18px;">P</div>
             <div style="font-size:13px; color:var(--text-2);">
-              PQN Design System · construído com <span style="font-family:var(--font-display); font-style:italic; color:var(--principal-9);">cuidado</span>
+              PQN Design System · construído com <span style="font-family:var(--font-sans); font-style:italic; color:var(--principal-9);">cuidado</span>
             </div>
           </div>
           <div style="font-family:var(--font-mono); font-size:11px; color:var(--text-3);">
@@ -1423,22 +1697,49 @@
       const colorsRoot = document.getElementById("colorsRoot");
       const currentTheme = () => document.documentElement.dataset.theme;
 
+      function makeSwatchRow(key, scaleName, theme) {
+        const scale = COLORS[theme][key];
+        const isDark = theme === "dark";
+        return `
+          <div class="swatch-row-label">
+            <span class="swatch-row-badge ${isDark ? "badge-dark" : "badge-light"}">
+              ${isDark ? "Dark" : "Light"}
+            </span>
+            <span style="font-size:11px;font-family:var(--font-mono);color:var(--text-3);">${theme}.tokens.json</span>
+          </div>
+          <div class="swatch-grid">
+            ${scale.map((hex, i) => `
+              <div class="swatch" data-hex="${hex}" data-step="${i+1}">
+                <div class="swatch-color" style="background:${hex}"></div>
+                <div class="swatch-info">
+                  <div class="swatch-step">${scaleName}.${i+1}</div>
+                  <div class="swatch-hex">${hex}</div>
+                </div>
+                <div class="swatch-copied">COPIADO</div>
+              </div>
+            `).join("")}
+          </div>
+        `;
+      }
+
       function renderColors() {
-        const theme = currentTheme();
         colorsRoot.innerHTML = "";
         Object.entries(SCALES).forEach(([key, meta]) => {
-          const scale = COLORS[theme][key];
           const display = meta.display || key;
+          const darkScale = COLORS.dark[key];
           const wrap = document.createElement("div");
           wrap.className = "scale reveal";
           wrap.dataset.search = (display + " " + meta.label + " " + meta.group).toLowerCase();
           wrap.innerHTML = `
             <div class="scale-head">
               <div class="scale-meta">
-                <div class="scale-chip" style="background:${scale[8]}"></div>
+                <div style="display:flex;gap:6px;">
+                  <div class="scale-chip" style="background:${darkScale[8]}"></div>
+                  <div class="scale-chip" style="background:${COLORS.light[key][8]};border:1px solid var(--border);"></div>
+                </div>
                 <div>
                   <div class="scale-name">${display} <small>${meta.label}</small></div>
-                  <div style="font-size:11px;color:var(--text-3);font-family:var(--font-mono);margin-top:4px;">${meta.group} · 12 steps</div>
+                  <div style="font-size:11px;color:var(--text-3);font-family:var(--font-mono);margin-top:4px;">${meta.group} · 12 steps · dark + light</div>
                 </div>
               </div>
               <div class="scale-actions">
@@ -1456,17 +1757,10 @@
                 </button>
               </div>
             </div>
-            <div class="swatch-grid">
-              ${scale.map((hex, i) => `
-                <div class="swatch" data-hex="${hex}" data-step="${i+1}">
-                  <div class="swatch-color" style="background:${hex}"></div>
-                  <div class="swatch-info">
-                    <div class="swatch-step">${key}.${i+1}</div>
-                    <div class="swatch-hex">${hex}</div>
-                  </div>
-                  <div class="swatch-copied">COPIADO</div>
-                </div>
-              `).join("")}
+            <div class="dual-swatch-wrap">
+              ${makeSwatchRow(key, display, "dark")}
+              <div class="swatch-divider"></div>
+              ${makeSwatchRow(key, display, "light")}
             </div>
           `;
           colorsRoot.appendChild(wrap);
@@ -1683,39 +1977,147 @@
       }
 
       /* ============================================================
-         RENDER — SPACING
+         RENDER — SPACING (educational)
          ============================================================ */
       const spacingRoot = document.getElementById("spacingRoot");
+
+      /* Extended metadata for educational view */
+      const SPACING_META = {
+        "4dp":  { group: "Micro",    cssVar: "--space-1",  tags: ["ícone ↔ label", "badge padding", "gap inline"],   padDemo: true  },
+        "8dp":  { group: "Micro",    cssVar: "--space-2",  tags: ["gap entre elementos", "padding input compacto", "ícone ↔ texto"], padDemo: true  },
+        "12dp": { group: "Componente", cssVar: "--space-3", tags: ["padding interno botão", "gap de chips/tags", "espaço interno compacto"], padDemo: true  },
+        "16dp": { group: "Componente", cssVar: "--space-4", tags: ["padding padrão card", "margem lateral mobile", "gap de itens de lista"], padDemo: true  },
+        "24dp": { group: "Componente", cssVar: "--space-6", tags: ["padding de card/modal", "gap entre grupos", "espaço vertical seção secundária"], padDemo: true  },
+        "32dp": { group: "Layout",   cssVar: "--space-8",  tags: ["separação entre seções", "espaço vertical entre blocos", "gap de colunas"], padDemo: false },
+        "48dp": { group: "Layout",   cssVar: "--space-12", tags: ["touch target mínimo", "espaço entre seções grandes", "altura de header compacto"], padDemo: false },
+        "64dp": { group: "Layout",   cssVar: "--space-16", tags: ["hero padding", "espaço entre seções primárias", "margem de rodapé"], padDemo: false },
+      };
+
       function renderSpacing() {
-        spacingRoot.innerHTML = SPACING.map(s => `
-          <div class="space-row" data-search="${s.token} ${s.use.toLowerCase()}">
-            <div class="space-token">${s.token}</div>
-            <div>
-              <div class="space-bar" style="width:${(s.px/64)*100}%;max-width:100%;"></div>
-              <div style="font-size:12px;color:var(--text-3);margin-top:6px;">${s.use}</div>
-            </div>
-            <div class="space-px">${s.px}px</div>
-            <button class="btn btn-icon" data-copy-text="${s.px}px" title="Copiar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            </button>
-          </div>
-        `).join("");
+        const groups = ["Micro", "Componente", "Layout"];
+        let html = "";
+        groups.forEach(group => {
+          const items = SPACING.filter(s => SPACING_META[s.token]?.group === group);
+          if (!items.length) return;
+          html += `<div class="spacing-group-label"><span>${group}</span></div>`;
+          items.forEach(s => {
+            const m = SPACING_META[s.token] || {};
+            const slabWidth = Math.max(s.px * 2.5, 16); /* visual scale */
+            const padSize = Math.min(s.px, 24);
+            html += `
+              <div class="space-row" data-search="${s.token} ${s.use.toLowerCase()} ${(m.tags||[]).join(" ")}">
+
+                <div class="space-token-col">
+                  <div class="space-token">${s.token}</div>
+                  <div class="space-px-val">${s.px}px</div>
+                  <div class="space-var">${m.cssVar || ""}</div>
+                </div>
+
+                <div class="space-demos">
+                  <div class="space-use-text">${s.use}</div>
+
+                  <!-- Slab visual (altura = px exato) -->
+                  <div class="space-slab-row">
+                    <span class="space-slab-label">Tamanho</span>
+                    <div class="space-slab" style="--slab-h:${s.px}px; width:${slabWidth}px;"></div>
+                    <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-3);margin-left:8px;">${s.px}px</span>
+                  </div>
+
+                  ${m.padDemo ? `
+                  <!-- Padding demo -->
+                  <div class="space-pad-demo">
+                    <span class="space-pad-demo-label">Padding</span>
+                    <div class="space-pad-box" style="padding:${padSize}px;">
+                      <div class="space-pad-inner" style="padding:6px 10px;">Conteúdo</div>
+                    </div>
+                  </div>
+
+                  <!-- Gap demo -->
+                  <div class="space-gap-row">
+                    <span class="space-gap-demo-label">Gap</span>
+                    <div class="space-gap-inner" style="gap:${s.px}px;">
+                      <div class="space-gap-block"></div>
+                      <div class="space-gap-spacer" style="width:${s.px}px;"></div>
+                      <div class="space-gap-block"></div>
+                    </div>
+                  </div>
+                  ` : ""}
+
+                  <div class="space-tags">
+                    ${(m.tags||[]).map(t => `<span class="space-tag">${t}</span>`).join("")}
+                  </div>
+                </div>
+
+                <div class="space-copy-col">
+                  <button class="btn btn-icon" data-copy-text="${s.px}px" title="Copiar ${s.px}px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
+                </div>
+
+              </div>
+            `;
+          });
+        });
+        spacingRoot.innerHTML = html;
         bindCopyText();
         observeReveals();
       }
 
       /* ============================================================
-         RENDER — RADIUS
+         RENDER — RADIUS (educational)
          ============================================================ */
+      const RADIUS_META = {
+        "radius-none": { semantic: "Sharp — sem arredondamento",         uses: "tabelas, divisores, imagens full-bleed" },
+        "radius-xs":   { semantic: "Sutil — quase reto",                 uses: "badges compactos, tags de código, tooltips" },
+        "radius-sm":   { semantic: "Leve — arredondamento discreto",     uses: "inputs, selects, dropdowns" },
+        "radius-md":   { semantic: "Padrão — arredondamento base",       uses: "botões, cards secundários, modais" },
+        "radius-lg":   { semantic: "Médio — sensação de suavidade",      uses: "cards principais, panels, popovers" },
+        "radius-xl":   { semantic: "Grande — bordas bem arredondadas",   uses: "cards destacados, hero sections, drawers" },
+        "radius-full": { semantic: "Pill / Circular — totalmente oval",  uses: "avatares, chips, botões de ação flutuante (FAB)" },
+      };
+
       const radiusRoot = document.getElementById("radiusRoot");
       function renderRadius() {
-        radiusRoot.innerHTML = RADIUS.map(r => `
-          <div class="radius-card" data-copy-text="${r.val}px" data-search="${r.token}" style="border-radius:${r.val}px;">
-            <div class="radius-shape" style="border-radius:${Math.min(r.val, 32)}px;"></div>
-            <div class="radius-name">${r.token}</div>
-            <div class="radius-val">${r.val}px</div>
-          </div>
-        `).join("");
+        radiusRoot.innerHTML = RADIUS.map(r => {
+          const m = RADIUS_META[r.token] || {};
+          const br = r.val === 999 ? "9999px" : `${r.val}px`;
+          const brShape = r.val === 999 ? "9999px" : `${Math.min(r.val, 40)}px`;
+
+          /* Component examples with this radius */
+          const examplesHtml = `
+            <div class="radius-examples">
+              <div class="radius-ex-label">Aplicado em componentes</div>
+              <div class="radius-ex-row">
+                <button class="rex-btn" style="border-radius:${br};">Botão</button>
+                <input class="rex-input" style="border-radius:${br};" readonly value="Input" />
+                <span class="rex-badge" style="border-radius:${br};">Badge</span>
+                ${r.val >= 999
+                  ? `<div class="rex-avatar" style="border-radius:9999px;">PQ</div>`
+                  : `<div class="rex-card" style="border-radius:${br};">Card</div>`}
+              </div>
+            </div>
+          `;
+
+          return `
+            <div class="radius-card" data-copy-text="${br}" data-search="${r.token} ${m.uses || ""}">
+              <div class="radius-card-head">
+                <div class="radius-token-info">
+                  <div class="radius-name">${r.token}</div>
+                  <div class="radius-val">${br}</div>
+                  <div class="radius-semantic">${m.semantic || ""}</div>
+                </div>
+                <button class="btn btn-icon" data-copy-text="${br}" title="Copiar ${br}">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+              <div class="radius-shape-wrap">
+                <div class="radius-shape" style="border-radius:${brShape};"></div>
+              </div>
+              ${m.uses ? `<div class="space-tags"><span style="font-size:11px;color:var(--text-3);font-family:var(--font-mono);">Ideal para:</span>${m.uses.split(", ").map(u => `<span class="space-tag">${u}</span>`).join("")}</div>` : ""}
+              ${examplesHtml}
+            </div>
+          `;
+        }).join("");
         bindCopyText();
         observeReveals();
       }
