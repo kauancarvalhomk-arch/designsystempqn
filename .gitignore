@@ -11,3 +11,14 @@ Thumbs.db
 node_modules/
 dist/
 .env
+
+# Platform project (not part of the design system repo)
+hub/
+
+.vercel
+
+# Claude / agent state
+.claude/
+
+# Source assets too large for GitHub (100MB limit)
+*.psd
