@@ -1,0 +1,12 @@
+node_modules/
+.claude/
+optimize-images.mjs
+package.json
+package-lock.json
+
+# Originais em alta resolução servidos via GitHub raw (RAW_BASE no design-system.html)
+Design system/Galeria/3d icons/originals/
+Design system/Galeria/categoria/originals/
+
+# PSDs e arquivos pesados não-essenciais
+*.psd

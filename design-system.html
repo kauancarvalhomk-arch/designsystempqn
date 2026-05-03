@@ -6422,6 +6422,14 @@
       const ICON_PATH       = 'Design system/Galeria/huge icons pack.iconjar/icons/';
       const ICONS_3D_PATH   = 'Design system/Galeria/3d icons/';
       const ICONS_CAT_PATH  = 'Design system/Galeria/categoria/';
+      // Originais ficam fora do deploy (Vercel) e são servidos via GitHub raw
+      // pra preservar qualidade total no download.
+      const RAW_BASE = 'https://raw.githubusercontent.com/kauancarvalhomk-arch/designsystempqn/master/';
+      function originalPathFor(coll, file) {
+        if (coll === 'huge') return pathForCollection(coll, file);
+        const folder = coll === '3d' ? '3d icons' : 'categoria';
+        return RAW_BASE + encodeURI('Design system/Galeria/' + folder + '/originals/' + file);
+      }
 
       function prettyName(file) {
         return file
@@ -6857,18 +6865,27 @@
             }
 
             if (action === 'download') {
+              const hiRes = originalPathFor(iconModalState.coll, file);
               const a = document.createElement('a');
-              a.href = path;
+              a.href = hiRes;
               a.download = file;
+              a.target = '_blank';
+              a.rel = 'noopener';
               document.body.appendChild(a);
               a.click();
               a.remove();
-              flashAction(btn, 'success', 'Baixando...');
+              flashAction(btn, 'success', 'Baixando original...');
               return;
             }
 
             if (action === 'copy-image') {
-              const blob = await fetchAsBlob(path);
+              const hiRes = originalPathFor(iconModalState.coll, file);
+              let blob;
+              try {
+                blob = await fetchAsBlob(hiRes);
+              } catch {
+                blob = await fetchAsBlob(path);
+              }
               await copyImageBlobToClipboard(blob);
               flashAction(btn, 'success', 'Imagem copiada');
               return;
