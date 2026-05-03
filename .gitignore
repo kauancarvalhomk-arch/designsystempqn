@@ -22,3 +22,9 @@ hub/
 
 # Source assets too large for GitHub (100MB limit)
 *.psd
+
+# Local helpers (não pertencem ao repo)
+tmp-figma/
+optimize-images.mjs
+package.json
+package-lock.json

@@ -3450,6 +3450,207 @@
         .topbar-meta { display: none; }
         .comp-page-head { padding-top: 32px; }
       }
+
+      /* ============================================================
+         CARDS & NAVEGAÇÃO — novos componentes
+         ============================================================ */
+
+      /* ---- Nav Tile ---- */
+      .pqn-nav-tile {
+        display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 8px; width: 96px; height: 84px; padding: 12px 10px;
+        border-radius: 16px; background: #1A1A1A; border: 1px solid #2A2A2A;
+        color: #B4B4B4; font: 600 12px Inter, sans-serif;
+        cursor: pointer;
+        transition: background 150ms, border-color 150ms, color 150ms, transform 150ms;
+      }
+      .pqn-nav-tile svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+      .pqn-nav-tile[data-state="Hover"],
+      .pqn-nav-tile[data-state="Default"]:hover { background: #2A2A2A; border-color: #3A3A3A; color: #EEEEEE; }
+      .pqn-nav-tile[data-state="Active"],
+      .pqn-nav-tile[data-state="Default"]:active { background: rgba(226,86,25,.16); border-color: #E25619; color: #FBBF8A; transform: scale(.97); }
+      .pqn-nav-tile[data-variant="Filled"] { background: rgba(226,86,25,.18); border-color: rgba(226,86,25,.34); color: #FBBF8A; }
+      .pqn-nav-tile[data-variant="Filled"]:hover { background: rgba(226,86,25,.26); }
+
+      /* ---- Sidebar Item ---- */
+      .pqn-side-item {
+        display: flex; align-items: center; gap: 12px;
+        width: 220px; padding: 10px 12px; border-radius: 12px;
+        background: transparent; border: 1px solid transparent;
+        color: #B4B4B4; font: 500 14px Inter, sans-serif;
+        cursor: pointer; user-select: none;
+        transition: background 150ms, border-color 150ms, color 150ms;
+      }
+      .pqn-side-item .pqn-side-icon { display: inline-flex; width: 20px; height: 20px; flex-shrink: 0; }
+      .pqn-side-item .pqn-side-icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+      .pqn-side-item .pqn-side-label { flex: 1; }
+      .pqn-side-item .pqn-side-chev { width: 16px; height: 16px; opacity: .55; }
+      .pqn-side-item .pqn-side-chev svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+      .pqn-side-item[data-state="Hover"],
+      .pqn-side-item[data-state="Default"]:hover { background: #2A2A2A; color: #EEEEEE; }
+      .pqn-side-item[data-state="Active"] { background: rgba(226,86,25,.10); border-color: rgba(226,86,25,.50); color: #FBBF8A; }
+      .pqn-side-item[data-style="Outline"] { border-color: #3A3A3A; }
+      .pqn-side-item[data-style="OutlineActive"] { border-color: #E25619; color: #FBBF8A; }
+
+      /* ---- Feed Card ---- */
+      .pqn-feed-card {
+        display: flex; flex-direction: column;
+        width: 200px; border-radius: 16px; overflow: hidden;
+        background: #1A1A1A; border: 1px solid #2A2A2A;
+        cursor: pointer;
+        transition: transform 150ms, border-color 150ms;
+      }
+      .pqn-feed-card:hover { border-color: #3A3A3A; transform: translateY(-2px); }
+      .pqn-feed-card .pqn-feed-img {
+        height: 220px; position: relative; overflow: hidden;
+        background: linear-gradient(135deg, #2A2A2A, #1A1A1A);
+      }
+      .pqn-feed-card[data-type="Live"] .pqn-feed-img {
+        background: linear-gradient(180deg, rgba(20,20,20,0) 60%, rgba(0,0,0,.7) 100%),
+                    linear-gradient(135deg, #5d3429, #2A2A2A);
+      }
+      .pqn-feed-card[data-type="Live"] .pqn-feed-img::before {
+        content: "AO VIVO"; position: absolute; top: 10px; left: 10px;
+        background: #E5484D; color: #fff; padding: 3px 8px; border-radius: 4px;
+        font: 700 10px Inter, sans-serif; letter-spacing: .04em;
+      }
+      .pqn-feed-card[data-type="ForYou"] .pqn-feed-img {
+        background: linear-gradient(135deg, #E25619, #5d3429);
+      }
+      .pqn-feed-card[data-type="ForYou"] .pqn-feed-img::before {
+        content: "FOR YOU"; position: absolute; top: 10px; left: 10px;
+        background: rgba(0,0,0,.55); color: #fff; padding: 3px 8px; border-radius: 4px;
+        font: 700 10px Inter, sans-serif; letter-spacing: .04em;
+      }
+      .pqn-feed-card[data-type="Product"] .pqn-feed-img {
+        height: 140px;
+        background: linear-gradient(135deg, #2A2A2A, #1A1A1A);
+      }
+      .pqn-feed-card .pqn-feed-body { padding: 12px; }
+      .pqn-feed-card .pqn-feed-title {
+        font: 700 14px Inter, sans-serif; color: #EEEEEE; line-height: 1.3;
+        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        margin-bottom: 6px;
+      }
+      .pqn-feed-card .pqn-feed-meta {
+        display: flex; align-items: center; gap: 8px; color: #7B7B7B; font: 500 12px Inter, sans-serif;
+      }
+      .pqn-feed-card .pqn-feed-avatar {
+        width: 18px; height: 18px; border-radius: 50%;
+        background: linear-gradient(135deg, #E25619, #FBBF8A);
+        flex-shrink: 0;
+      }
+
+      /* ---- Campaign Card ---- */
+      .pqn-campaign {
+        display: flex; flex-direction: column; gap: 14px;
+        width: 360px; padding: 18px;
+        background: #161616; border: 1px solid #2A2A2A; border-radius: 16px;
+        font: 500 13px Inter, sans-serif; color: #EEEEEE;
+      }
+      .pqn-campaign .pq-row1 { display: flex; align-items: flex-start; gap: 12px; }
+      .pqn-campaign .pq-ico {
+        width: 40px; height: 40px; border-radius: 10px;
+        background: rgba(226,86,25,.12); color: #E25619;
+        display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+      }
+      .pqn-campaign[data-type="Push"] .pq-ico { background: rgba(98,166,255,.12); color: #62A6FF; }
+      .pqn-campaign[data-type="Banner"] .pq-ico { background: rgba(196,98,255,.14); color: #C462FF; }
+      .pqn-campaign .pq-ico svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+      .pqn-campaign .pq-title { font-weight: 700; font-size: 14px; color: #EEEEEE; line-height: 1.3; }
+      .pqn-campaign .pq-sub { font-size: 12px; color: #B4B4B4; margin-top: 2px; }
+      .pqn-campaign .pq-badge {
+        display: inline-flex; align-items: center; gap: 4px;
+        padding: 4px 10px; border-radius: 999px;
+        font: 600 11px Inter, sans-serif; letter-spacing: .02em;
+        align-self: flex-start;
+      }
+      .pqn-campaign[data-status="Ativo"] .pq-badge { background: rgba(46,203,113,.14); color: #2ECB71; }
+      .pqn-campaign[data-status="Esgotado"] .pq-badge { background: rgba(229,72,77,.14); color: #FF9592; }
+      .pqn-campaign[data-status="Agendada"] .pq-badge { background: rgba(98,166,255,.14); color: #62A6FF; }
+      .pqn-campaign[data-status="Pausada"] .pq-badge { background: #2A2A2A; color: #B4B4B4; }
+      .pqn-campaign .pq-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+      .pqn-campaign .pq-stat {
+        background: #1A1A1A; border: 1px solid #2A2A2A; border-radius: 10px;
+        padding: 10px 12px;
+      }
+      .pqn-campaign .pq-stat-label { font-size: 11px; color: #7B7B7B; text-transform: lowercase; }
+      .pqn-campaign .pq-stat-val { font: 700 16px Inter, sans-serif; color: #EEEEEE; margin-top: 4px; }
+      .pqn-campaign .pq-prog-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; }
+      .pqn-campaign .pq-prog-row .pq-pct { color: #B4B4B4; font-weight: 600; }
+      .pqn-campaign .pq-bar {
+        height: 6px; background: #2A2A2A; border-radius: 999px; overflow: hidden; margin-top: 6px;
+      }
+      .pqn-campaign .pq-bar > i {
+        display: block; height: 100%; background: linear-gradient(90deg, #E25619, #F5924A);
+        border-radius: 999px; transition: width 300ms ease;
+      }
+      .pqn-campaign[data-status="Esgotado"] .pq-bar > i { background: linear-gradient(90deg, #E5484D, #FF9592); }
+      .pqn-campaign[data-status="Agendada"] .pq-bar > i { background: linear-gradient(90deg, #62A6FF, #9DC2FF); }
+      .pqn-campaign .pq-foot {
+        display: flex; align-items: center; justify-content: space-between;
+        border-top: 1px solid #2A2A2A; padding-top: 14px; margin-top: 2px;
+      }
+      .pqn-campaign .pq-when { font-size: 12px; color: #B4B4B4; }
+      .pqn-campaign .pq-when .arr { color: #7B7B7B; margin: 0 6px; }
+      .pqn-campaign .pq-action {
+        background: transparent; border: 1px solid #3A3A3A;
+        color: #EEEEEE; padding: 8px 18px; border-radius: 999px;
+        font: 600 12px Inter, sans-serif; cursor: pointer;
+        transition: background 150ms, border-color 150ms;
+      }
+      .pqn-campaign .pq-action:hover { background: #2A2A2A; border-color: #484848; }
+
+      /* ---- Quest Card ---- */
+      .pqn-quest {
+        display: flex; flex-direction: column; gap: 12px;
+        width: 280px; padding: 16px;
+        background: #161616; border: 1px solid #2A2A2A; border-radius: 14px;
+        font: 500 13px Inter, sans-serif; color: #EEEEEE;
+      }
+      .pqn-quest .qh { display: flex; align-items: center; gap: 10px; }
+      .pqn-quest .qh .qico {
+        width: 28px; height: 28px; border-radius: 8px;
+        background: rgba(255,214,10,.10); color: #FFD60A;
+        display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+      }
+      .pqn-quest .qh .qico svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+      .pqn-quest .qh .qt { font-weight: 700; font-size: 14px; color: #EEEEEE; }
+      .pqn-quest .qd { color: #B4B4B4; font-size: 12px; line-height: 1.4; }
+      .pqn-quest .qpm { display: flex; justify-content: space-between; font-size: 12px; color: #B4B4B4; font-weight: 600; }
+      .pqn-quest .qbar { height: 6px; background: #2A2A2A; border-radius: 999px; overflow: hidden; }
+      .pqn-quest .qbar > i {
+        display: block; height: 100%;
+        background: linear-gradient(90deg, #FFD60A, #FFA500);
+        border-radius: 999px; transition: width 300ms ease;
+      }
+      .pqn-quest .qf { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+      .pqn-quest .qstatus { font-size: 12px; color: #FFD60A; font-weight: 600; }
+      .pqn-quest[data-status="Aguardando"] .qstatus { color: #B4B4B4; }
+      .pqn-quest[data-status="Resgatado"] .qstatus { color: #2ECB71; }
+      .pqn-quest .qreward {
+        display: inline-flex; align-items: center; gap: 4px;
+        background: rgba(255,214,10,.12); color: #FFD60A;
+        padding: 3px 8px 3px 4px; border-radius: 999px;
+        font: 700 11px Inter, sans-serif;
+      }
+      .pqn-quest .qreward .qcoin {
+        width: 16px; height: 16px; border-radius: 50%;
+        background: linear-gradient(135deg, #FFD60A, #FFA500); color: #1D180F;
+        display: inline-flex; align-items: center; justify-content: center;
+        font: 800 8px Inter, sans-serif; letter-spacing: -.02em;
+      }
+      .pqn-quest .qbtn {
+        border: 0; padding: 8px 14px; border-radius: 999px;
+        font: 600 12px Inter, sans-serif; cursor: pointer;
+        background: #E25619; color: #fff;
+        transition: background 150ms, color 150ms, border-color 150ms;
+      }
+      .pqn-quest .qbtn:hover { background: #F5924A; color: #111; }
+      .pqn-quest .qbtn[data-disabled="true"] {
+        background: transparent; border: 1px solid #3A3A3A; color: #7B7B7B; cursor: default;
+      }
+      .pqn-quest .qbtn[data-disabled="true"]:hover { background: transparent; color: #7B7B7B; }
     </style>
   </head>
 
@@ -6004,6 +6205,436 @@
 .pqn-btn-social svg { width: 20px; height: 20px; fill: currentColor; }
 .pqn-btn-social[data-state="Hover"] { background: #313131; border-color: #484848; }
 .pqn-btn-social[data-state="Click"] { background: #313131; border-color: #606060; transform: scale(.96); }`;
+          },
+        },
+
+        /* ============================================================
+           CARDS & NAVEGAÇÃO
+           ============================================================ */
+
+        'nav-tile': {
+          name: 'Nav Tile',
+          category: 'Navegação',
+          desc: 'Tile de navegação inferior — ícone + label compacto. Estados Default, Hover e Active. Variante Filled para destacar item selecionado.',
+          tags: ['Navegação','Tile','Bottom nav'],
+          figmaNode: '1258:157511',
+          variants: [
+            { state: 'Default', variant: 'Outline', icon: 'home',   label: 'Home' },
+            { state: 'Default', variant: 'Outline', icon: 'heart',  label: 'Salvos' },
+            { state: 'Default', variant: 'Outline', icon: 'shield', label: 'Saúde' },
+            { state: 'Default', variant: 'Filled',  icon: 'home',   label: 'Home' },
+            { state: 'Active',  variant: 'Outline', icon: 'home',   label: 'Home' },
+          ],
+          animate: [{ state: 'Default' }, { state: 'Hover' }, { state: 'Active' }],
+          defaults: { state: 'Default', variant: 'Outline', icon: 'home', label: 'Home' },
+          render(v) {
+            const ico = ICON_SVGS[v.icon] || ICON_SVGS.home;
+            return `<button class="pqn-nav-tile" data-state="${v.state}" data-variant="${v.variant}">${ico}<span>${escapeHtml(v.label || 'Home')}</span></button>`;
+          },
+          controls(v) {
+            return [
+              { id: 'label',   type: 'text',      label: 'Label',   value: v.label },
+              { id: 'icon',    type: 'select',    label: 'Ícone',   value: v.icon, options: ICON_KEYS },
+              { id: 'variant', type: 'segmented', label: 'Variante',value: v.variant, options: ['Outline','Filled'] },
+              { id: 'state',   type: 'segmented', label: 'Estado',  value: v.state,   options: ['Default','Hover','Active'] },
+            ];
+          },
+          codeHTML(v) {
+            return `<button class="pqn-nav-tile" data-state="${v.state}" data-variant="${v.variant}">
+  <!-- ${v.icon} icon SVG -->
+  <span>${escapeHtml(v.label || 'Home')}</span>
+</button>`;
+          },
+          codeCSS() {
+            return `.pqn-nav-tile {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; width: 96px; height: 84px; padding: 12px 10px;
+  border-radius: 16px; background: #1A1A1A; border: 1px solid #2A2A2A;
+  color: #B4B4B4; font: 600 12px Inter, sans-serif; cursor: pointer;
+  transition: background 150ms, border-color 150ms, color 150ms, transform 150ms;
+}
+.pqn-nav-tile svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
+.pqn-nav-tile[data-state="Default"]:hover,
+.pqn-nav-tile[data-state="Hover"] { background: #2A2A2A; border-color: #3A3A3A; color: #EEEEEE; }
+.pqn-nav-tile[data-state="Active"],
+.pqn-nav-tile[data-state="Default"]:active {
+  background: rgba(226,86,25,.16); border-color: #E25619; color: #FBBF8A; transform: scale(.97);
+}
+.pqn-nav-tile[data-variant="Filled"] {
+  background: rgba(226,86,25,.18); border-color: rgba(226,86,25,.34); color: #FBBF8A;
+}`;
+          },
+        },
+
+        'sidebar-item': {
+          name: 'Sidebar Item',
+          category: 'Navegação',
+          desc: 'Item da navegação lateral — ícone + label, com chevron opcional para grupos expansíveis. Suporta Default, Hover, Active (selecionado).',
+          tags: ['Sidebar','Menu','Navegação'],
+          figmaNode: '979:62030',
+          variants: [
+            { state: 'Default', icon: 'home',     label: 'Home',         chevron: false, style: 'Ghost' },
+            { state: 'Default', icon: 'heart',    label: 'Saúde da conta', chevron: false, style: 'Ghost' },
+            { state: 'Default', icon: 'list',     label: 'Inventário',   chevron: true,  style: 'Ghost' },
+            { state: 'Default', icon: 'video',    label: 'Lives',        chevron: true,  style: 'Ghost' },
+            { state: 'Default', icon: 'message',  label: 'Marketing',    chevron: true,  style: 'Ghost' },
+            { state: 'Hover',   icon: 'dollar',   label: 'Vendas',       chevron: false, style: 'Ghost' },
+            { state: 'Active',  icon: 'gift',     label: 'Recompensas',  chevron: false, style: 'Ghost' },
+            { state: 'Default', icon: 'home',     label: 'Home',         chevron: false, style: 'Outline' },
+          ],
+          animate: [{ state: 'Default' }, { state: 'Hover' }, { state: 'Active' }],
+          defaults: { state: 'Default', icon: 'home', label: 'Home', chevron: false, style: 'Ghost' },
+          render(v) {
+            const ico = ICON_SVGS[v.icon] || ICON_SVGS.home;
+            const chev = v.chevron ? `<span class="pqn-side-chev">${ICON_SVGS.chevronR}</span>` : '';
+            return `<div class="pqn-side-item" data-state="${v.state}" data-style="${v.style||'Ghost'}">
+  <span class="pqn-side-icon">${ico}</span>
+  <span class="pqn-side-label">${escapeHtml(v.label || 'Item')}</span>
+  ${chev}
+</div>`;
+          },
+          controls(v) {
+            return [
+              { id: 'label',   type: 'text',      label: 'Label',    value: v.label },
+              { id: 'icon',    type: 'select',    label: 'Ícone',    value: v.icon, options: ICON_KEYS },
+              { id: 'chevron', type: 'toggle',    label: 'Chevron',  value: v.chevron },
+              { id: 'style',   type: 'segmented', label: 'Estilo',   value: v.style, options: ['Ghost','Outline'] },
+              { id: 'state',   type: 'segmented', label: 'Estado',   value: v.state, options: ['Default','Hover','Active'] },
+            ];
+          },
+          codeHTML(v) {
+            const chev = v.chevron ? `\n  <span class="pqn-side-chev"><!-- chevron SVG --></span>` : '';
+            return `<div class="pqn-side-item" data-state="${v.state}" data-style="${v.style||'Ghost'}">
+  <span class="pqn-side-icon"><!-- ${v.icon} icon SVG --></span>
+  <span class="pqn-side-label">${escapeHtml(v.label || 'Item')}</span>${chev}
+</div>`;
+          },
+          codeCSS() {
+            return `.pqn-side-item {
+  display: flex; align-items: center; gap: 12px;
+  width: 220px; padding: 10px 12px; border-radius: 12px;
+  background: transparent; border: 1px solid transparent;
+  color: #B4B4B4; font: 500 14px Inter, sans-serif; cursor: pointer;
+  transition: background 150ms, border-color 150ms, color 150ms;
+}
+.pqn-side-item .pqn-side-icon,
+.pqn-side-item .pqn-side-chev { display: inline-flex; flex-shrink: 0; }
+.pqn-side-item .pqn-side-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
+.pqn-side-item .pqn-side-label { flex: 1; }
+.pqn-side-item[data-state="Default"]:hover,
+.pqn-side-item[data-state="Hover"] { background: #2A2A2A; color: #EEEEEE; }
+.pqn-side-item[data-state="Active"] { background: rgba(226,86,25,.10); border-color: rgba(226,86,25,.50); color: #FBBF8A; }`;
+          },
+        },
+
+        'feed-card': {
+          name: 'Feed Card',
+          category: 'Cards',
+          desc: 'Card do feed da rede social — Live, For You ou Produto. Imagem de capa + título + meta (autor/avatar). Hover dá leve elevação.',
+          tags: ['Feed','Live','For You','Produto'],
+          figmaNode: '335:4422',
+          variants: [
+            { type: 'Live',    title: 'Drop Pokémon Black Star — venda agora', author: 'maria.cards' },
+            { type: 'ForYou',  title: 'Funko Marvel · ofertas relâmpago no PQN', author: 'staff' },
+            { type: 'Product', title: 'Tênis Jordan 1 Retro · tamanho 42', author: 'lucas.tn' },
+          ],
+          defaults: { type: 'Live', title: 'Drop Pokémon Black Star — venda agora', author: 'maria.cards' },
+          render(v) {
+            return `<div class="pqn-feed-card" data-type="${v.type}">
+  <div class="pqn-feed-img"></div>
+  <div class="pqn-feed-body">
+    <div class="pqn-feed-title">${escapeHtml(v.title || 'Título do card')}</div>
+    <div class="pqn-feed-meta"><span class="pqn-feed-avatar"></span>@${escapeHtml(v.author || 'usuario')}</div>
+  </div>
+</div>`;
+          },
+          controls(v) {
+            return [
+              { id: 'type',   type: 'segmented', label: 'Tipo',   value: v.type, options: ['Live','ForYou','Product'] },
+              { id: 'title',  type: 'text',      label: 'Título', value: v.title },
+              { id: 'author', type: 'text',      label: 'Autor',  value: v.author },
+            ];
+          },
+          codeHTML(v) {
+            return `<div class="pqn-feed-card" data-type="${v.type}">
+  <div class="pqn-feed-img"></div>
+  <div class="pqn-feed-body">
+    <div class="pqn-feed-title">${escapeHtml(v.title)}</div>
+    <div class="pqn-feed-meta"><span class="pqn-feed-avatar"></span>@${escapeHtml(v.author)}</div>
+  </div>
+</div>`;
+          },
+          codeCSS() {
+            return `.pqn-feed-card {
+  display: flex; flex-direction: column;
+  width: 200px; border-radius: 16px; overflow: hidden;
+  background: #1A1A1A; border: 1px solid #2A2A2A; cursor: pointer;
+  transition: transform 150ms, border-color 150ms;
+}
+.pqn-feed-card:hover { border-color: #3A3A3A; transform: translateY(-2px); }
+.pqn-feed-card .pqn-feed-img { height: 220px; position: relative; }
+.pqn-feed-card[data-type="Live"]    .pqn-feed-img::before { content: "AO VIVO"; background: #E5484D; }
+.pqn-feed-card[data-type="ForYou"]  .pqn-feed-img::before { content: "FOR YOU"; background: rgba(0,0,0,.55); }
+.pqn-feed-card .pqn-feed-img::before {
+  position: absolute; top: 10px; left: 10px;
+  color: #fff; padding: 3px 8px; border-radius: 4px;
+  font: 700 10px Inter, sans-serif; letter-spacing: .04em;
+}
+.pqn-feed-card .pqn-feed-body { padding: 12px; }
+.pqn-feed-card .pqn-feed-title {
+  font: 700 14px Inter, sans-serif; color: #EEEEEE; line-height: 1.3;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  margin-bottom: 6px;
+}
+.pqn-feed-card .pqn-feed-meta { display: flex; align-items: center; gap: 8px; color: #7B7B7B; font: 500 12px Inter, sans-serif; }
+.pqn-feed-card .pqn-feed-avatar {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: linear-gradient(135deg, #E25619, #FBBF8A);
+}`;
+          },
+        },
+
+        'campaign-card': {
+          name: 'Campaign Card',
+          category: 'Cards',
+          desc: 'Card de campanha de marketing — banner in-app, push ou destaque. Inclui status, métricas (alcance, cliques, vendas), barra de progresso e ação.',
+          tags: ['Marketing','Campanha','Banner','Push'],
+          figmaNode: '__custom-campaign__',
+          variants: [
+            { type: 'Banner', status: 'Ativo',     title: 'Mega Pack Pokémon — Destaque home', subtitle: 'Destaque na home', icon: 'home',     reach: '2', clicks: '12', sales: 'R$100,00', spent: 47.30, budget: 80, dateFrom: '08/Abr 18:00', dateTo: '08/Abr 22:00', actionLabel: 'Pausar' },
+            { type: 'Push',   status: 'Agendada', title: 'Push: Funko Drop Marvel',           subtitle: 'Push notification', icon: 'bell',     reach: 'N/A', clicks: 'N/A', sales: 'N/A',     spent: 0,    budget: 80, dateFrom: '08/Abr 18:00', dateTo: '08/Abr 22:00', actionLabel: 'Pausar' },
+            { type: 'Banner', status: 'Esgotado',  title: 'Sneaker Friday',                    subtitle: 'Banner in-app',     icon: 'image',    reach: '2', clicks: '12', sales: 'R$100,00', spent: 47.30, budget: 80, dateFrom: '08/Abr 18:00', dateTo: '08/Abr 22:00', actionLabel: 'Pausar' },
+            { type: 'Banner', status: 'Pausada',   title: 'Indique 3 vendedores',              subtitle: 'Programa indicação',icon: 'gift',     reach: '0', clicks: '0',  sales: 'R$0,00',   spent: 0,    budget: 80, dateFrom: '12/Abr 09:00', dateTo: '15/Abr 23:59', actionLabel: 'Continuar' },
+          ],
+          defaults: {
+            type: 'Banner', status: 'Ativo',
+            title: 'Mega Pack Pokémon — Destaque home', subtitle: 'Destaque na home',
+            icon: 'home', reach: '2', clicks: '12', sales: 'R$100,00',
+            spent: 47.30, budget: 80,
+            dateFrom: '08/Abr 18:00', dateTo: '08/Abr 22:00',
+            actionLabel: 'Pausar'
+          },
+          render(v) {
+            const ico = ICON_SVGS[v.icon] || ICON_SVGS.home;
+            const pct = Math.max(0, Math.min(100, Math.round((Number(v.spent)||0) / (Number(v.budget)||1) * 100)));
+            const fmt = (n) => 'R$ ' + Number(n).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+,)/g,'$1.');
+            return `<div class="pqn-campaign" data-type="${v.type}" data-status="${v.status}">
+  <div class="pq-row1">
+    <div class="pq-ico">${ico}</div>
+    <div style="flex:1; min-width:0;">
+      <div class="pq-title">${escapeHtml(v.title || 'Campanha')}</div>
+      <div class="pq-sub">${escapeHtml(v.subtitle || '')}</div>
+    </div>
+  </div>
+  <div class="pq-badge">${escapeHtml(v.status)}</div>
+  <div class="pq-stats">
+    <div class="pq-stat"><div class="pq-stat-label">Alcance</div><div class="pq-stat-val">${escapeHtml(v.reach)}</div></div>
+    <div class="pq-stat"><div class="pq-stat-label">Cliques</div><div class="pq-stat-val">${escapeHtml(v.clicks)}</div></div>
+    <div class="pq-stat"><div class="pq-stat-label">Vendas</div><div class="pq-stat-val">${escapeHtml(v.sales)}</div></div>
+  </div>
+  <div>
+    <div class="pq-prog-row"><span>${fmt(v.spent)} / ${fmt(v.budget)}</span><span class="pq-pct">${pct}%</span></div>
+    <div class="pq-bar"><i style="width:${pct}%"></i></div>
+  </div>
+  <div class="pq-foot">
+    <div class="pq-when">${escapeHtml(v.dateFrom)} <span class="arr">&rarr;</span> ${escapeHtml(v.dateTo)}</div>
+    <button class="pq-action">${escapeHtml(v.actionLabel || 'Pausar')}</button>
+  </div>
+</div>`;
+          },
+          interact(el) {
+            const card = el.querySelector('.pqn-campaign');
+            const btn  = el.querySelector('.pq-action');
+            if (!card || !btn) return;
+            btn.addEventListener('click', () => {
+              const status = card.getAttribute('data-status');
+              const badge = card.querySelector('.pq-badge');
+              if (status === 'Ativo') {
+                card.setAttribute('data-status', 'Pausada');
+                btn.textContent = 'Continuar';
+                if (badge) badge.textContent = 'Pausada';
+              } else if (status === 'Pausada') {
+                card.setAttribute('data-status', 'Ativo');
+                btn.textContent = 'Pausar';
+                if (badge) badge.textContent = 'Ativo';
+              }
+            });
+          },
+          controls(v) {
+            return [
+              { id: 'title',       type: 'text',      label: 'Título',    value: v.title },
+              { id: 'subtitle',    type: 'text',      label: 'Subtítulo', value: v.subtitle },
+              { id: 'type',        type: 'segmented', label: 'Tipo',      value: v.type,   options: ['Banner','Push'] },
+              { id: 'status',      type: 'segmented', label: 'Status',    value: v.status, options: ['Ativo','Agendada','Esgotado','Pausada'] },
+              { id: 'icon',        type: 'select',    label: 'Ícone',     value: v.icon,   options: ICON_KEYS },
+              { id: 'reach',       type: 'text',      label: 'Alcance',   value: v.reach },
+              { id: 'clicks',      type: 'text',      label: 'Cliques',   value: v.clicks },
+              { id: 'sales',       type: 'text',      label: 'Vendas',    value: v.sales },
+              { id: 'spent',       type: 'text',      label: 'Gasto R$',  value: v.spent },
+              { id: 'budget',      type: 'text',      label: 'Budget R$', value: v.budget },
+              { id: 'actionLabel', type: 'text',      label: 'Ação',      value: v.actionLabel },
+            ];
+          },
+          codeHTML(v) {
+            const pct = Math.round((Number(v.spent)||0) / (Number(v.budget)||1) * 100);
+            return `<div class="pqn-campaign" data-type="${v.type}" data-status="${v.status}">
+  <div class="pq-row1">
+    <div class="pq-ico"><!-- ${v.icon} icon --></div>
+    <div>
+      <div class="pq-title">${escapeHtml(v.title)}</div>
+      <div class="pq-sub">${escapeHtml(v.subtitle)}</div>
+    </div>
+  </div>
+  <div class="pq-badge">${escapeHtml(v.status)}</div>
+  <div class="pq-stats">
+    <div class="pq-stat"><div class="pq-stat-label">Alcance</div><div class="pq-stat-val">${escapeHtml(v.reach)}</div></div>
+    <div class="pq-stat"><div class="pq-stat-label">Cliques</div><div class="pq-stat-val">${escapeHtml(v.clicks)}</div></div>
+    <div class="pq-stat"><div class="pq-stat-label">Vendas</div><div class="pq-stat-val">${escapeHtml(v.sales)}</div></div>
+  </div>
+  <div class="pq-bar"><i style="width:${pct}%"></i></div>
+  <div class="pq-foot">
+    <div class="pq-when">${escapeHtml(v.dateFrom)} → ${escapeHtml(v.dateTo)}</div>
+    <button class="pq-action">${escapeHtml(v.actionLabel)}</button>
+  </div>
+</div>`;
+          },
+          codeCSS() {
+            return `.pqn-campaign {
+  width: 360px; padding: 18px;
+  background: #161616; border: 1px solid #2A2A2A; border-radius: 16px;
+  display: flex; flex-direction: column; gap: 14px;
+  font: 500 13px Inter, sans-serif; color: #EEEEEE;
+}
+.pqn-campaign .pq-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.pqn-campaign .pq-stat { padding: 10px 12px; background: #1A1A1A; border: 1px solid #2A2A2A; border-radius: 10px; }
+.pqn-campaign .pq-stat-val { font: 700 16px Inter, sans-serif; color: #EEEEEE; margin-top: 4px; }
+.pqn-campaign .pq-bar { height: 6px; background: #2A2A2A; border-radius: 999px; overflow: hidden; }
+.pqn-campaign .pq-bar > i {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, #E25619, #F5924A);
+  border-radius: 999px; transition: width 300ms ease;
+}
+.pqn-campaign[data-status="Ativo"]    .pq-badge { background: rgba(46,203,113,.14); color: #2ECB71; }
+.pqn-campaign[data-status="Agendada"] .pq-badge { background: rgba(98,166,255,.14); color: #62A6FF; }
+.pqn-campaign[data-status="Esgotado"] .pq-badge { background: rgba(229,72,77,.14); color: #FF9592; }
+.pqn-campaign[data-status="Pausada"]  .pq-badge { background: #2A2A2A;             color: #B4B4B4; }`;
+          },
+        },
+
+        'quest-card': {
+          name: 'Quest Card',
+          category: 'Cards',
+          desc: 'Card de missão/quest com progresso, prazo e recompensa em PQN coins. Status: Em andamento, Aguardando, Resgatado.',
+          tags: ['Gamificação','Quest','Recompensa'],
+          figmaNode: '__custom-quest__',
+          variants: [
+            { status: 'Em andamento', title: 'Faça 5 lives este mês',           desc: 'Transmita pelo menos 5 lives no mês.',         current: 3, total: 5, days: 30, reward: 500, icon: 'broadcast' },
+            { status: 'Em andamento', title: 'R$ 5.000 em vendas',              desc: 'Atinja R$ 5.000 em vendas no mês.',            current: 3, total: 5, days: 30, reward: 500, icon: 'dollar'    },
+            { status: 'Aguardando',   title: 'Indique 3 vendedores',            desc: 'Cada indicação aprovada conta 1 ponto.',       current: 3, total: 5, days: 30, reward: 500, icon: 'user'      },
+            { status: 'Aguardando',   title: 'Mantenha 4.8★ de avaliação',     desc: 'Tenha avaliação mínima de 4.8 nos últimos 30 dias.', current: 3, total: 5, days: 30, reward: 500, icon: 'heart' },
+            { status: 'Resgatado',    title: 'Convide 100 seguidores no canal', desc: 'Atinja 100 seguidores no seu canal.',          current: 5, total: 5, days: 30, reward: 500, icon: 'user'      },
+          ],
+          animate: [{ state: 'Em andamento' }, { state: 'Aguardando' }, { state: 'Resgatado' }],
+          defaults: { status: 'Em andamento', title: 'Faça 5 lives este mês', desc: 'Transmita pelo menos 5 lives no mês.', current: 3, total: 5, days: 30, reward: 500, icon: 'broadcast' },
+          render(v) {
+            const ico = ICON_SVGS[v.icon] || ICON_SVGS.broadcast;
+            const pct = Math.max(0, Math.min(100, Math.round((Number(v.current)||0) / (Number(v.total)||1) * 100)));
+            const btnLabel = v.status === 'Em andamento' && pct >= 100 ? 'Resgatar'
+              : v.status === 'Aguardando' ? 'Aguardando...'
+              : v.status === 'Resgatado'  ? 'Resgatado'
+              : 'Resgatar';
+            const disabled = v.status !== 'Em andamento' || pct < 100 ? 'true' : 'false';
+            return `<div class="pqn-quest" data-status="${v.status}">
+  <div class="qh">
+    <span class="qico">${ico}</span>
+    <span class="qt">${escapeHtml(v.title || 'Missão')}</span>
+  </div>
+  <div class="qd">${escapeHtml(v.desc || '')}</div>
+  <div class="qpm">
+    <span>${escapeHtml(String(v.current))}/${escapeHtml(String(v.total))}</span>
+    <span>${escapeHtml(String(v.days))} Dias</span>
+  </div>
+  <div class="qbar"><i style="width:${pct}%"></i></div>
+  <div class="qf">
+    <span class="qstatus">${escapeHtml(v.status)}</span>
+    <span class="qreward"><span class="qcoin">PN</span>+${escapeHtml(String(v.reward))}</span>
+  </div>
+  <div class="qf" style="justify-content: flex-end;">
+    <button class="qbtn" data-disabled="${disabled}">${escapeHtml(btnLabel)}</button>
+  </div>
+</div>`;
+          },
+          interact(el) {
+            const card = el.querySelector('.pqn-quest');
+            const btn  = el.querySelector('.qbtn');
+            if (!card || !btn) return;
+            if (btn.dataset.disabled === 'true') return;
+            btn.addEventListener('click', () => {
+              card.setAttribute('data-status', 'Resgatado');
+              btn.dataset.disabled = 'true';
+              btn.textContent = 'Resgatado';
+              const stat = card.querySelector('.qstatus');
+              if (stat) stat.textContent = 'Resgatado';
+            });
+          },
+          controls(v) {
+            return [
+              { id: 'title',   type: 'text',      label: 'Título',      value: v.title },
+              { id: 'desc',    type: 'text',      label: 'Descrição',   value: v.desc },
+              { id: 'icon',    type: 'select',    label: 'Ícone',       value: v.icon, options: ICON_KEYS },
+              { id: 'current', type: 'text',      label: 'Progresso',   value: v.current },
+              { id: 'total',   type: 'text',      label: 'Total',       value: v.total },
+              { id: 'days',    type: 'text',      label: 'Dias',        value: v.days },
+              { id: 'reward',  type: 'text',      label: 'Recompensa',  value: v.reward },
+              { id: 'status',  type: 'segmented', label: 'Status',      value: v.status, options: ['Em andamento','Aguardando','Resgatado'] },
+            ];
+          },
+          codeHTML(v) {
+            const pct = Math.round((Number(v.current)||0) / (Number(v.total)||1) * 100);
+            return `<div class="pqn-quest" data-status="${v.status}">
+  <div class="qh">
+    <span class="qico"><!-- ${v.icon} icon --></span>
+    <span class="qt">${escapeHtml(v.title)}</span>
+  </div>
+  <div class="qd">${escapeHtml(v.desc)}</div>
+  <div class="qpm"><span>${v.current}/${v.total}</span><span>${v.days} Dias</span></div>
+  <div class="qbar"><i style="width:${pct}%"></i></div>
+  <div class="qf">
+    <span class="qstatus">${escapeHtml(v.status)}</span>
+    <span class="qreward"><span class="qcoin">PN</span>+${v.reward}</span>
+  </div>
+  <button class="qbtn">Resgatar</button>
+</div>`;
+          },
+          codeCSS() {
+            return `.pqn-quest {
+  width: 280px; padding: 16px;
+  background: #161616; border: 1px solid #2A2A2A; border-radius: 14px;
+  display: flex; flex-direction: column; gap: 12px;
+  font: 500 13px Inter, sans-serif; color: #EEEEEE;
+}
+.pqn-quest .qh { display: flex; align-items: center; gap: 10px; }
+.pqn-quest .qbar { height: 6px; background: #2A2A2A; border-radius: 999px; overflow: hidden; }
+.pqn-quest .qbar > i {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, #FFD60A, #FFA500);
+  border-radius: 999px;
+}
+.pqn-quest .qreward {
+  background: rgba(255,214,10,.12); color: #FFD60A;
+  padding: 3px 8px 3px 4px; border-radius: 999px;
+  font: 700 11px Inter, sans-serif;
+}
+.pqn-quest[data-status="Aguardando"] .qstatus { color: #B4B4B4; }
+.pqn-quest[data-status="Resgatado"]  .qstatus { color: #2ECB71; }
+.pqn-quest .qbtn {
+  border: 0; padding: 8px 14px; border-radius: 999px;
+  font: 600 12px Inter, sans-serif; cursor: pointer;
+  background: #E25619; color: #fff;
+}
+.pqn-quest .qbtn[data-disabled="true"] {
+  background: transparent; border: 1px solid #3A3A3A; color: #7B7B7B;
+}`;
           },
         },
       };
